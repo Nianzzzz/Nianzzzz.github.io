@@ -20,7 +20,7 @@ tags: 基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤
 
 ![1766111822102](/Windows_hexo_deploy/1766111822102.png)
 
-{% asset_img 1766111822102.png 1766111822102 %}
+
 
 ### 3.验证安装
 
