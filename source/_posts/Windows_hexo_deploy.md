@@ -10,7 +10,7 @@ tags: 基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤
 
 官网网选择windows版本的下载即可：https://nodejs.cn/download
 
-![1766111698216](/1766111698216.png)
+![1766111698216](Windows_hexo_deploy/1766111698216.png)
 
 
 
