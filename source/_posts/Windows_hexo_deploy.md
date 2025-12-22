@@ -1,5 +1,5 @@
 ---
-title: Windows_hexo_deploy
+title: hexo博客安装步骤【Windows版】
 date: 2025-12-19 10:15:41
 tags: 基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤
 ---
@@ -18,7 +18,7 @@ tags: 基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤
 
 ### 2.安装node.js
 
-![1766111822102](/Windows_hexo_deploy/1766111822102.png)
+![1766111822102](Windows_hexo_deploy/1766111822102.png)
 
 
 
@@ -26,7 +26,7 @@ tags: 基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤
 
 WIN+R打开CMD管理员运行-->输入node -v , npm -v
 
-![1766111963979](/Windows_hexo_deploy/1766111963979.png)
+![1766111963979](Windows_hexo_deploy/1766111963979.png)
 
 
 
@@ -48,7 +48,7 @@ npm install -g cnpm --registry=https://registry.npmmirror.com
 
 安装完成验证输入：cnpm(回车)
 
-![1766112842964](/Windows_hexo_deploy/1766112842964.png)
+![1766112842964](Windows_hexo_deploy/1766112842964.png)
 
 输入：
 
@@ -56,7 +56,7 @@ npm install -g cnpm --registry=https://registry.npmmirror.com
 cnpm -v 【查看版本】
 ```
 
-![1766113024052](/Windows_hexo_deploy/1766113024052.png)
+![1766113024052](Windows_hexo_deploy/1766113024052.png)
 
 
 
@@ -68,7 +68,7 @@ cnpm -v 【查看版本】
 cnpm install -g hexo-cli
 ```
 
-![1766114564046](/Windows_hexo_deploy/1766114564046.png)
+![1766114564046](Windows_hexo_deploy/1766114564046.png)
 
 验证安装：
 
@@ -76,7 +76,7 @@ cnpm install -g hexo-cli
 hexo -v
 ```
 
-![1766114998068](/Windows_hexo_deploy/1766114998068.png)
+![1766114998068](Windows_hexo_deploy/1766114998068.png)
 
 
 
@@ -116,7 +116,7 @@ hexo init #CMD
 sudo hexo init #MAC或Linux版本
 ```
 
-![1766115683428](/Windows_hexo_deploy/1766115683428.png)
+![1766115683428](Windows_hexo_deploy/1766115683428.png)
 
 查看是否生成内容
 
@@ -124,7 +124,7 @@ sudo hexo init #MAC或Linux版本
 dir 
 ```
 
-![1766115939554](/Windows_hexo_deploy/1766115939554.png)
+![1766115939554](Windows_hexo_deploy/1766115939554.png)
 
 
 
@@ -140,7 +140,7 @@ hexo server #三种启动方法均可
 npm run server
 ```
 
-![1766120989325](/Windows_hexo_deploy/1766120989325.png)
+![1766120989325](Windows_hexo_deploy/1766120989325.png)
 
 
 
@@ -178,7 +178,7 @@ hexo s #启动服务
 
 ### 6.遇到生成错误问题如何解决
 
-![1766121639145](/Windows_hexo_deploy/1766121639145.png)
+![1766121639145](Windows_hexo_deploy/1766121639145.png)
 
 一般生成错误是因为语法格式问题出错
 
@@ -188,11 +188,11 @@ hexo s #启动服务
 - `tags` 和 `categories` 下的列表项（如 `- 标签1`）**必须用2个空格缩进**。
 - 确保所有中英文标点符号为英文状态（尤其是冒号和空格）。
 
-![1766122199502](/Windows_hexo_deploy/1766122199502.png)
+![1766122199502](Windows_hexo_deploy/1766122199502.png)
 
 **正确格式为：**
 
-![1766122238404](/Windows_hexo_deploy/1766122238404.png)
+![1766122238404](Windows_hexo_deploy/1766122238404.png)
 
 
 
@@ -214,13 +214,13 @@ post_asset_folder: true
 
 #### 7.3**在文章中引用图片**
 
-假设你的文章是 `/Windows_hexo_deploy.md`，那么资源文件夹就是 `/Windows_hexo_deploy/`。你把图片（比如 `setup.png`）放进去后，在Markdown中使用以下语法引用：
+假设你的文章是 `/.md`，那么资源文件夹就是 ``。你把图片（比如 `setup.png`）放进去后，在Markdown中使用以下语法引用：
 
 ```
-![图片描述](/Windows_hexo_deploy/setup.png)
+![图片描述](setup.png)
 ```
 
-**注意：** 这里直接写文件名，**不要**加 `./` 或任何绝对路径。
+**注意：** 这里直接写文件名，**不要**加 `Windows_hexo_deploy/` 或任何绝对路径。
 
 #### 7.4修改完成后重启hexo
 
@@ -260,11 +260,11 @@ npm install hexo-asset-image --save
 
 **新建仓库**
 
-![1766124810091](/Windows_hexo_deploy/1766124810091.png)
+![1766124810091](Windows_hexo_deploy/1766124810091.png)
 
-![1766125090802](/Windows_hexo_deploy/1766125090802.png)
+![1766125090802](Windows_hexo_deploy/1766125090802.png)
 
-![1766125478588](/Windows_hexo_deploy/1766125478588.png)
+![1766125478588](Windows_hexo_deploy/1766125478588.png)
 
 
 
@@ -276,7 +276,7 @@ blog目录下输入：
 cnpm install hexo-deployer-git --save 
 ```
 
-![1766125446505](/Windows_hexo_deploy/1766125446505.png)
+![1766125446505](Windows_hexo_deploy/1766125446505.png)
 
 
 
@@ -286,14 +286,14 @@ _config.yml文件在blog目录下可见
 
 #### 3.1打开并修改如下：
 
-![1766125863173](/Windows_hexo_deploy/1766125863173.png)
+![1766125863173](Windows_hexo_deploy/1766125863173.png)
 
 ```
 deploy:
 
   type: git
 
-  repo: https://github.com/Nianzzzz/Nianzzzz.github.io.git #你的git仓库地址
+  repo: https://github.com/Nianzzzz/Nianzzzz.githubWindows_hexo_deploy.git #你的git仓库地址
 
   branch: master
 ```
@@ -310,15 +310,15 @@ hexo d
 
 **部署失败将地址修改为SSH地址：**
 
-![1766126312727](/Windows_hexo_deploy/1766126312727.png)
+![1766126312727](Windows_hexo_deploy/1766126312727.png)
 
-![1766126288576](/Windows_hexo_deploy/1766126288576.png)
+![1766126288576](Windows_hexo_deploy/1766126288576.png)
 
 ***安装失败请确保电脑已安装Git，否则需安装并配置其环境变量***
 
 **部署成功返回：**
 
-![1766136465103](/Windows_hexo_deploy/1766136465103.png)
+![1766136465103](Windows_hexo_deploy/1766136465103.png)
 
 **部署失败原因：**
 

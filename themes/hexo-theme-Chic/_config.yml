@@ -1,5 +1,5 @@
 # Header
-navname: Bentham's Blog
+navname: Zhaonian's Blog
 
 # navigatior items
 nav:
@@ -9,14 +9,14 @@ nav:
   About: /about
 
 # favicon
-favicon: /favicon.ico
+favicon: /博客智库.ico
 
 # Profile
-nickname: Jeremy Bentham
+nickname: 兆年的博客
 
 ### this variable is MarkDown form.
-description: Lorem ipsum dolor sit amet, **consectetur adipiscing elit.** <br>Fusce eget urna vitae velit *eleifend interdum at ac* nisi.
-avatar: /image/avatar.jpeg
+description: Focus on **AI large models** and programming practices. <br>*Sharing cutting-edge technical analysis,* efficient development experience, <br>and exploring new frontiers of programming *in the age of intelligence*.
+avatar: /image/vxhead portrait.jpg
 
 # main menu navigation
 ## links key words should not be changed.
