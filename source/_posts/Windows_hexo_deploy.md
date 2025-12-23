@@ -250,6 +250,42 @@ npm install hexo-asset-image --save
 
 更换一个新的主题试试
 
+### 7.7解决路径问题
+
+**安装hexo-asset-image后路径中会自动生成别的路径**
+
+**解决方法：**
+
+**卸载hexo-asset-image**
+
+```CMD
+npm uninstall hexo-asset-image
+```
+
+**下载其他的图片插件**
+
+```CMD
+npm install hexo-renderer-marked --save
+```
+
+**修改配置文件_config.yml：**
+
+```YML
+#主动添加root：
+
+root : /blog/  #blog为安装博客的根目录文件夹名称
+
+post_asset_folder: true
+
+relative_link: false
+```
+
+**图片依旧放置在同名文件夹中**
+
+**markdown中图片路径为：**
+
+**[图片描述] (同名文件夹名称/图片名称)**
+
 
 
 ---
@@ -324,3 +360,66 @@ hexo d
 
 ***GitHub SSH 密钥对配置一下即可***
 
+##### 3.2.1配置密钥方法：
+
+**打开git的bash（桌面右键打开）**
+
+```cpp
+cd ~/.ssh #查看.ssh文件夹是否存在，里面是否有文件
+```
+
+![1766391334808](Windows_hexo_deploy/1766391334808.png)
+
+假如显示文件不存在
+
+**安装以下命令生成密钥：**
+
+```cpp
+ssh-keygen -t rsa -C "xxx@xxx.com"  // 将 "xxx@xxx.com" 替换为你自己GitHub的邮箱地址
+```
+
+执行成功后出现：
+
+![1766391416798](Windows_hexo_deploy/1766391416798.png)
+
+也可以手动查看文件夹中是否生成rsa密钥
+
+![1766391627979](Windows_hexo_deploy/1766391627979.png)
+
+![1766391760249](Windows_hexo_deploy/1766391760249.png)
+
+**将复制的内容粘贴到Github的ssh密钥配置窗口中：点击setting**
+
+![1766391843759](Windows_hexo_deploy/1766391843759.png)
+
+![1766391887223](Windows_hexo_deploy/1766391887223.png)
+
+**检查是否配置成功：**
+
+```cpp
+ssh -T git@github.com
+```
+
+如果没有成功，可能是出现了中文路径
+
+**可以尝试修改 SSH 配置文件的默认路径：**
+
+修改用户环境变量：
+
+```
+export HOME=/C/Users/your-username
+```
+
+手动创建.ssh文件夹：
+
+```
+mkdir -p /C/Users/your-username/.ssh
+```
+
+设置正确的权限：
+
+```
+chmod 700 /C/Users/your-username/.ssh
+```
+
+再重复一遍密钥生成，然后复制密钥、配置密钥、检查密钥是否连接成功！

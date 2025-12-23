@@ -296,6 +296,20 @@
 <p>这个插件会自动将你在Markdown中写的图片相对路径，转换为部署后的正确绝对路径。</p>
 <h4 id="7-6要是还是无法显示图片"><a href="#7-6要是还是无法显示图片" class="headerlink" title="7.6要是还是无法显示图片"></a>7.6要是还是无法显示图片</h4><p>可能是主题兼容问题导致的</p>
 <p>更换一个新的主题试试</p>
+<h3 id="7-7解决路径问题"><a href="#7-7解决路径问题" class="headerlink" title="7.7解决路径问题"></a>7.7解决路径问题</h3><p><strong>安装hexo-asset-image后路径中会自动生成别的路径</strong></p>
+<p><strong>解决方法：</strong></p>
+<p><strong>卸载hexo-asset-image</strong></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-asset-image</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载其他的图片插件</strong></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改配置文件_config.yml：</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主动添加root：</span></span><br><span class="line"></span><br><span class="line"><span class="attr">root :</span> <span class="string">/blog/</span>  <span class="comment">#blog为安装博客的根目录文件夹名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>图片依旧放置在同名文件夹中</strong></p>
+<p><strong>markdown中图片路径为：</strong></p>
+<p><strong>[图片描述] (同名文件夹名称&#x2F;图片名称)</strong></p>
 <hr>
 <h2 id="三、在GitHub上部署hexo"><a href="#三、在GitHub上部署hexo" class="headerlink" title="三、在GitHub上部署hexo"></a>三、在GitHub上部署hexo</h2><h3 id="1-打开并登录GitHub"><a href="#1-打开并登录GitHub" class="headerlink" title="1.打开并登录GitHub"></a>1.打开并登录GitHub</h3><p><strong>新建仓库</strong></p>
 <p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766124810091.png" alt="1766124810091"></p>
@@ -321,6 +335,37 @@
 <p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766136465103.png" alt="1766136465103"></p>
 <p><strong>部署失败原因：</strong></p>
 <p><em><strong>GitHub SSH 密钥对配置一下即可</strong></em></p>
+<h5 id="3-2-1配置密钥方法："><a href="#3-2-1配置密钥方法：" class="headerlink" title="3.2.1配置密钥方法："></a>3.2.1配置密钥方法：</h5><p><strong>打开git的bash（桌面右键打开）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh #查看.ssh文件夹是否存在，里面是否有文件</span><br></pre></td></tr></table></figure>
+
+<p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766391334808.png" alt="1766391334808"></p>
+<p>假如显示文件不存在</p>
+<p><strong>安装以下命令生成密钥：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;xxx@xxx.com&quot;</span>  <span class="comment">// 将 &quot;xxx@xxx.com&quot; 替换为你自己GitHub的邮箱地址</span></span><br></pre></td></tr></table></figure>
+
+<p>执行成功后出现：</p>
+<p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766391416798.png" alt="1766391416798"></p>
+<p>也可以手动查看文件夹中是否生成rsa密钥</p>
+<p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766391627979.png" alt="1766391627979"></p>
+<p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766391760249.png" alt="1766391760249"></p>
+<p><strong>将复制的内容粘贴到Github的ssh密钥配置窗口中：点击setting</strong></p>
+<p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766391843759.png" alt="1766391843759"></p>
+<p><img src="/bolg/2025/12/19/Windows_hexo_deploy/1766391887223.png" alt="1766391887223"></p>
+<p><strong>检查是否配置成功：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>如果没有成功，可能是出现了中文路径</p>
+<p><strong>可以尝试修改 SSH 配置文件的默认路径：</strong></p>
+<p>修改用户环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HOME=/C/Users/your-username</span><br></pre></td></tr></table></figure>
+
+<p>手动创建.ssh文件夹：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /C/Users/your-username/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>设置正确的权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 700 /C/Users/your-username/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>再重复一遍密钥生成，然后复制密钥、配置密钥、检查密钥是否连接成功！</p>
 
         </div>
 
@@ -372,10 +417,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/bolg/2025/12/20/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">第一篇文章</a>
+                <a class="prev" rel="prev" href="/bolg/2025/12/22/%E6%A8%A1%E5%9E%8B%E8%A7%A3%E6%9E%90%E5%9B%BE%E7%89%87%E7%9A%84API%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/">模型解析图片的API接口测试</a>
             
-            
-            <a class="next" rel="next" href="/bolg/2025/12/19/hello-world/">Hello World</a>
             
         </section>
 
