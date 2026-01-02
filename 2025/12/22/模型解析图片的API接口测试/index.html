@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>模型解析图片的API接口测试 | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">模型解析图片的API接口测试</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 22, 2025&nbsp;&nbsp;20:34:40</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="一、Apifox连接模型接口"><a href="#一、Apifox连接模型接口" class="headerlink" title="一、Apifox连接模型接口"></a>一、Apifox连接模型接口</h2><h3 id="导入模型接口文档：《Ollama-apifox-json》"><a href="#导入模型接口文档：《Ollama-apifox-json》" class="headerlink" title="导入模型接口文档：《Ollama.apifox.json》"></a>导入模型接口文档：《Ollama.apifox.json》</h3><p><strong>提前准备好json格式的接口文件</strong></p>
+<p><img src="1766407277673.png" alt="1766407277673"></p>
+<p><img src="1766407803592.png" alt="1766407803592"></p>
+<p><img src="1766407843173.png" alt="1766407843173"></p>
+<hr>
+<h2 id="二、编辑base64编码图片解析的python文件"><a href="#二、编辑base64编码图片解析的python文件" class="headerlink" title="二、编辑base64编码图片解析的python文件"></a>二、编辑base64编码图片解析的python文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 关联文件</span><br><span class="line">with open(&#x27;./wzryjing.jpg&#x27;, &#x27;rb&#x27;) as src_f:</span><br><span class="line">    # 读取图片数据，转成字节数组</span><br><span class="line">    bys_data =src_f.read()</span><br><span class="line"></span><br><span class="line"># print(bys_data) # 打印字节数组</span><br><span class="line"></span><br><span class="line"># 把上述字节数组转成base64编码</span><br><span class="line">result = base64.b64encode(bys_data).decode(&#x27;utf-8&#x27;)</span><br><span class="line">print(result) # 打印base64编码</span><br></pre></td></tr></table></figure>
+
+<p><img src="1766408008141.png" alt="1766408008141"></p>
+<h3 id="复制打印结果："><a href="#复制打印结果：" class="headerlink" title="复制打印结果："></a>复制打印结果：</h3><p><img src="1766408048051.png" alt="1766408048051"></p>
+<hr>
+<h2 id="三、开始解析"><a href="#三、开始解析" class="headerlink" title="三、开始解析"></a>三、开始解析</h2><h3 id="将图片base64格式的文档复制到记事本中以备使用"><a href="#将图片base64格式的文档复制到记事本中以备使用" class="headerlink" title="将图片base64格式的文档复制到记事本中以备使用"></a>将图片base64格式的文档复制到记事本中以备使用</h3><p><img src="1766408188348.png" alt="1766408188348"></p>
+<h3 id="准备接口测试环境（准备必须参数）"><a href="#准备接口测试环境（准备必须参数）" class="headerlink" title="准备接口测试环境（准备必须参数）"></a>准备接口测试环境（准备必须参数）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    &quot;model&quot;: &quot;deepseek-r1:1.5b&quot;, </span><br><span class="line"></span><br><span class="line">​    &quot;messages&quot;: [</span><br><span class="line"></span><br><span class="line">​        &#123;</span><br><span class="line"></span><br><span class="line">​            &quot;role&quot;: &quot;user&quot;,</span><br><span class="line"></span><br><span class="line">​            &quot;content&quot;: &quot;图片中的人物是王者荣耀中的哪位英雄&quot;,</span><br><span class="line"></span><br><span class="line">​            &quot;images&quot;: [&quot;&quot;]</span><br><span class="line"></span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​    ],</span><br><span class="line"></span><br><span class="line">​    &quot;stream&quot;: false</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="1766408377434.png" alt="1766408377434"></p>
+<h3 id="将准备好的文档粘贴进图片解析参数中"><a href="#将准备好的文档粘贴进图片解析参数中" class="headerlink" title="将准备好的文档粘贴进图片解析参数中"></a>将准备好的文档粘贴进图片解析参数中</h3><p><img src="1766408479651.png" alt="1766408479651"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    &quot;error&quot;: &quot;invalid character &#x27;\\r&#x27; in string literal&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>出现上述错误，是因为粘贴的base64编码的格式不对，注意记事本有无设置自动换行，取消自动换行即可</strong></em></p>
+<p><em><strong>注意复制时光标需放在最后一个字符末尾，否则还是会识别换行</strong></em></p>
+<p><em><strong>也要检查最前端是否有其他无关字符或空格存在</strong></em></p>
+<p><img src="1766468315240.png" alt="1766468315240"></p>
+<h3 id="测试接口成功："><a href="#测试接口成功：" class="headerlink" title="测试接口成功："></a>测试接口成功：</h3><p><img src="1766411882936.png" alt="1766411882936"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2025/12/22/%E6%A8%A1%E5%9E%8B%E8%A7%A3%E6%9E%90%E5%9B%BE%E7%89%87%E7%9A%84API%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/">https://nianzzzz.github.io/2025/12/22/%E6%A8%A1%E5%9E%8B%E8%A7%A3%E6%9E%90%E5%9B%BE%E7%89%87%E7%9A%84API%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E4%BD%BF%E7%94%A8Apifox%E8%B0%83%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%A8%A1%E5%9E%8B%E8%A7%A3%E6%9E%90%E5%9B%BE%E7%89%87%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"># 使用Apifox调用本地大模型对模型解析图片做接口测试</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/12/26/ollama%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/">ollama私有化部署</a>
+            
+            
+            <a class="next" rel="next" href="/2025/12/19/Windows_hexo_deploy/">hexo博客安装步骤【Windows版】</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

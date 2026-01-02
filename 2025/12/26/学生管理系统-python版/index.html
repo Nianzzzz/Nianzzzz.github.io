@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>学生管理系统(python版) | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">学生管理系统(python版)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 26, 2025&nbsp;&nbsp;8:33:49</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">案例: 学生管理系统</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">思路:</span></span><br><span class="line"><span class="string">    1.采用函数实现模块化编程.</span></span><br><span class="line"><span class="string">    2.可以对学生信息进行 增删改查的操作。</span></span><br><span class="line"><span class="string">    3.学生信息我们用列表嵌套字典的方式来实现，后续可以改为:文件，数据库等...</span></span><br><span class="line"><span class="string">        info=[</span></span><br><span class="line"><span class="string">        &#123;&#x27;id&#x27;:&#x27;学号&#x27;，&#x27;name&#x27;:&#x27;姓名&#x27;，&#x27;tel&#x27;:&#x27;手机号&#x27;&#125;，</span></span><br><span class="line"><span class="string">        &#123;&#x27;id&#x27;:&#x27;学号&#x27;，&#x27;name&#x27;:&#x27;姓名&#x27;，&#x27;tel&#x27;:&#x27;手机号&#125;，</span></span><br><span class="line"><span class="string">        &#123;&#x27;id&#x27;:&#x27;学号&#x27;，&#x27;name&#x27;:&#x27;姓名&#x27;，&#x27;tel&#x27;:&#x27;手机号&#x27;&#125;</span></span><br><span class="line"><span class="string">        ......</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">实现步骤:</span></span><br><span class="line"><span class="string">    1.定义函数 print_logo()，打印:菜单界面.</span></span><br><span class="line"><span class="string">    2.定义函数 add_student()，实现:增加学生信息.</span></span><br><span class="line"><span class="string">    3.定义函数 del_student()，实现:删除学生信息.</span></span><br><span class="line"><span class="string">    4.定义函数 update_student()，实现:修改学生信息.</span></span><br><span class="line"><span class="string">    5.定义函数 search_one_student()，实现:查找(单个)学生信息.</span></span><br><span class="line"><span class="string">    6.定义函数search_all_student()，实现:查找(所有)学生信息.</span></span><br><span class="line"><span class="string">    7.定义函数 execute()，用来实现:完整的业务逻辑，根据用户录入的内容，做对应的操作.</span></span><br><span class="line"><span class="string">    8.定义函数 main().实现: 主函数,即程序的主入口</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="程序逻辑"><a href="#程序逻辑" class="headerlink" title="程序逻辑"></a>程序逻辑</h3><hr>
+<p><strong>采用模块化编程思路，通过函数实现增删改查功能。学生信息采用列表嵌套字典结构存储，便于后续扩展为文件或数据库存储。</strong></p>
+<hr>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;欢迎使用🎃学生管理系统&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">info = [</span><br><span class="line">    &#123;<span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;01&#x27;</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;张三&#x27;</span>, <span class="string">&#x27;tel&#x27;</span>: <span class="string">&#x27;123-456-7890&#x27;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;02&#x27;</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;李四&#x27;</span>, <span class="string">&#x27;tel&#x27;</span>: <span class="string">&#x27;124-456-7890&#x27;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;03&#x27;</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;王五&#x27;</span>, <span class="string">&#x27;tel&#x27;</span>: <span class="string">&#x27;132-456-7890&#x27;</span>&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.定义函数 print_memu()，todo 打印:菜单界面.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_memu</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是实现显示菜单效果的</span></span><br><span class="line"><span class="string">    :return:返回输入的操作</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;请选择操作&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;1.添加学生信息&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;2.删除学生信息&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;3.修改学生信息&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;4.查询单个学生信息&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;5.查询所有学生信息&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;6.退出系统&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.定义函数 add_student()，todo 实现:增加学生信息.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_student</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是实现通过判断学号是否存在添加学生的效果</span></span><br><span class="line"><span class="string">    学号存在：则提示学号已存在，请重新输入</span></span><br><span class="line"><span class="string">    学号不存在：开始添加学生信息（学号、姓名、电话）</span></span><br><span class="line"><span class="string">    :return: 结束后返回菜单界面</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;添加学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> info</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        stu_id = <span class="built_in">input</span>(<span class="string">&#x27;学生id：&#x27;</span>).strip()  <span class="comment"># 去掉前后空格</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">any</span>(stu_info[<span class="string">&#x27;id&#x27;</span>] == stu_id <span class="keyword">for</span> stu_info <span class="keyword">in</span> info):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;抱歉，您输入的id已存在，请重新输入\n&#x27;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        stu_name = <span class="built_in">input</span>(<span class="string">&#x27;学生姓名：&#x27;</span>)</span><br><span class="line">        stu_tel = <span class="built_in">input</span>(<span class="string">&#x27;学生联系方式：&#x27;</span>)</span><br><span class="line">        new_stu = &#123;<span class="string">&#x27;id&#x27;</span>: stu_id, <span class="string">&#x27;name&#x27;</span>: stu_name, <span class="string">&#x27;tel&#x27;</span>: stu_tel&#125;</span><br><span class="line">        info.append(new_stu)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;id为<span class="subst">&#123;stu_id&#125;</span>的学生<span class="subst">&#123;stu_name&#125;</span>信息添加成功！\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.定义函数 del_student()，todo 实现:删除学生信息.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">del_student</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是实现按照学号查找，删除学生信息的效果</span></span><br><span class="line"><span class="string">    查找学号：</span></span><br><span class="line"><span class="string">        学号存在：提示学号信息已存在</span></span><br><span class="line"><span class="string">        学号不存在：</span></span><br><span class="line"><span class="string">            提示用户是否删除：用户根据提示回答</span></span><br><span class="line"><span class="string">                                    如果是yes，则删除并返回菜单</span></span><br><span class="line"><span class="string">                                    如果是no,取消删除并返回菜单</span></span><br><span class="line"><span class="string">    :return: 删除成功返回菜单；取消删除也返回菜单</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;删除学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> info</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        del_id = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生id:&#x27;</span>).strip()</span><br><span class="line">        <span class="comment"># 查找学生</span></span><br><span class="line">        target_student = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> stu_info <span class="keyword">in</span> info:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">str</span>(stu_info[<span class="string">&#x27;id&#x27;</span>]) == del_id:</span><br><span class="line">                target_student = stu_info</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> target_student <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;该用户不存在，请输入正确的学号！\n&#x27;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;找到学生：<span class="subst">&#123;target_student[<span class="string">&quot;id&quot;</span>]&#125;</span>,姓名:<span class="subst">&#123;target_student[<span class="string">&quot;name&quot;</span>]&#125;</span>,手机号:<span class="subst">&#123;target_student[<span class="string">&quot;tel&quot;</span>]&#125;</span>&#x27;</span>)</span><br><span class="line">        is_or_not = <span class="built_in">input</span>(<span class="string">f&#x27;确定要删除<span class="subst">&#123;del_id&#125;</span>号学生吗？(yes/no)&#x27;</span>).strip().lower()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> is_or_not == <span class="string">&#x27;yes&#x27;</span>:</span><br><span class="line">            info.remove(target_student)  <span class="comment"># 可直接remove找到字典</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;删除成功！！！\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;取消删除\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.定义函数 update_student()，todo 实现:修改学生信息.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_student</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是通过查找学号实现更改学生信息的效果</span></span><br><span class="line"><span class="string">    不能修改学号，只能修改学生姓名和电话</span></span><br><span class="line"><span class="string">    提示修改：</span></span><br><span class="line"><span class="string">        直接回车可以跳过修改内容</span></span><br><span class="line"><span class="string">        输入修改内容，则修改学生信息</span></span><br><span class="line"><span class="string">        最后打印修改结果，返回菜单</span></span><br><span class="line"><span class="string">    :return: 修改成功返回菜单</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;修改学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> info</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        udp_stu = <span class="built_in">input</span>(<span class="string">&#x27;输入要修改的学生学号：&#x27;</span>).strip()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 查找学生</span></span><br><span class="line">        found = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> stu_info <span class="keyword">in</span> info:</span><br><span class="line">            <span class="comment"># 统一比较类型</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">str</span>(udp_stu) == <span class="built_in">str</span>(stu_info[<span class="string">&#x27;id&#x27;</span>]):</span><br><span class="line">                found = <span class="literal">True</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&#x27;当前学生信息：<span class="subst">&#123;stu_info&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 修改姓名</span></span><br><span class="line">                udp_name = <span class="built_in">input</span>(<span class="string">&#x27;修改姓名（直接回车跳过修改姓名）：&#x27;</span>).strip()</span><br><span class="line">                <span class="keyword">if</span> udp_name:  <span class="comment"># 如果不是空字符串则修改</span></span><br><span class="line">                    stu_info[<span class="string">&#x27;name&#x27;</span>] = udp_name</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 修改电话</span></span><br><span class="line">                udp_tel = <span class="built_in">input</span>(<span class="string">&#x27;修改电话（直接回车跳过修改电话）：&#x27;</span>).strip()</span><br><span class="line">                <span class="keyword">if</span> udp_tel:  <span class="comment"># 如果不是空字符串则修改</span></span><br><span class="line">                    stu_info[<span class="string">&#x27;tel&#x27;</span>] = udp_tel</span><br><span class="line"></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;修改成功！&#x27;</span>)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&#x27;修改后的学生信息为：<span class="subst">&#123;stu_info&#125;</span>&#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果遍历完所有学生都没有找到</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> found:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;该id为<span class="subst">&#123;udp_stu&#125;</span>的学生不存在，请重新输入！&#x27;</span>)</span><br><span class="line">            continue_option = <span class="built_in">input</span>(<span class="string">&#x27;是否继续修改？（y/n）:&#x27;</span>).strip().lower()</span><br><span class="line">            <span class="keyword">if</span> continue_option != <span class="string">&#x27;y&#x27;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.定义函数 search_one_student()，todo 实现:查找(单个)学生信息.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_one_student</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是通过用户输入学生id查找学生信息</span></span><br><span class="line"><span class="string">    用户输入学生id：</span></span><br><span class="line"><span class="string">            如果学号存在：返回查找信息</span></span><br><span class="line"><span class="string">            如果学号不存在：返回学号不存在，请重新输入</span></span><br><span class="line"><span class="string">    :return: 查询成功返回菜单，查询失败也返回菜单</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;查询单个学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> info</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        stu_ser = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生信息(学号)：&#x27;</span>).strip()</span><br><span class="line">        <span class="keyword">for</span> stu_info <span class="keyword">in</span> info:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">str</span>(stu_ser) == <span class="built_in">str</span>(stu_info[<span class="string">&#x27;id&#x27;</span>]):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&#x27;学号:<span class="subst">&#123;stu_info[<span class="string">&quot;id&quot;</span>]&#125;</span>,姓名:<span class="subst">&#123;stu_info[<span class="string">&quot;name&quot;</span>]&#125;</span>,手机号:<span class="subst">&#123;stu_info[<span class="string">&quot;tel&quot;</span>]&#125;</span>&#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;抱歉，找不到学号为<span class="subst">&#123;stu_ser&#125;</span>的学生&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.定义函数search_all_student()，todo 实现:查找(所有)学生信息.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_all_student</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是通过输入菜单提示的数字‘5’查找所有的学生信息</span></span><br><span class="line"><span class="string">    :return: 返回菜单</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;所有学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> info</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(info) == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;暂无学生信息，请添加后查询！\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> stu_info <span class="keyword">in</span> info:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;学号:<span class="subst">&#123;stu_info[<span class="string">&quot;id&quot;</span>]&#125;</span>,姓名:<span class="subst">&#123;stu_info[<span class="string">&quot;name&quot;</span>]&#125;</span>,手机号:<span class="subst">&#123;stu_info[<span class="string">&quot;tel&quot;</span>]&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>()  <span class="comment"># 换行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.定义函数 execute()，todo 用来实现:完整的业务逻辑，根据用户录入的内容，做对应的操作.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">execute</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是实现完整的业务逻辑</span></span><br><span class="line"><span class="string">    根据用户输入操作对应的数字来指定要进行的操作</span></span><br><span class="line"><span class="string">    :return:返回输入数字对应的操作界面</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 7.1执行循环</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># 7.2调用print_logo()函数,打印菜单界面</span></span><br><span class="line">        print_memu()</span><br><span class="line">        <span class="comment"># 7.3获取用户输入的内容</span></span><br><span class="line">        num = <span class="built_in">input</span>(<span class="string">&#x27;请输入编号操作内容:&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> num == <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">            add_student()</span><br><span class="line">        <span class="keyword">elif</span> num == <span class="string">&#x27;2&#x27;</span>:</span><br><span class="line">            del_student()</span><br><span class="line">        <span class="keyword">elif</span> num == <span class="string">&#x27;3&#x27;</span>:</span><br><span class="line">            update_student()</span><br><span class="line">        <span class="keyword">elif</span> num == <span class="string">&#x27;4&#x27;</span>:</span><br><span class="line">            search_one_student()</span><br><span class="line">        <span class="keyword">elif</span> num == <span class="string">&#x27;5&#x27;</span>:</span><br><span class="line">            search_all_student()</span><br><span class="line">        <span class="keyword">elif</span> num == <span class="string">&#x27;6&#x27;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;\n欢迎您下次使用ヾ(•ω•`)o👋\n&#x27;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;请按提示进行操作！！！\n&#x27;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 8.定义函数 main().todo 实现: 主函数,即程序的主入口</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    execute()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p><em><strong>系统扩展建议<br>数据持久化：将列表数据保存到文件或数据库<br>输入验证：增加对用户输入的合法性检查<br>异常处理：添加try-except块处理潜在错误<br>界面优化：使用更美观的界面库如curses或tkinter<br>功能扩展：添加排序、统计等附加功能</strong></em></p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2025/12/26/%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-python%E7%89%88/">https://nianzzzz.github.io/2025/12/26/%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-python%E7%89%88/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%9F%BA%E4%BA%8Epython%E5%BC%80%E5%8F%91%E7%9A%84%E5%B0%8F%E5%9E%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%88%97%E8%A1%A8%E7%89%88%EF%BC%8C%E5%90%8E%E7%BB%AD%E5%8F%AF%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E4%BB%B6%E7%89%88%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%EF%BC%89/"># 基于python开发的小型学生管理系统（列表版，后续可升级为文件版和数据库版）</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/12/28/hello-world/">Hello World</a>
+            
+            
+            <a class="next" rel="next" href="/2025/12/26/ollama%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/">ollama私有化部署</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
