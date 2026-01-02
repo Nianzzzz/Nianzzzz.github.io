@@ -1,134 +1,221 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>hexo博客安装步骤【Windows版】 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="一、安装步骤1.下载node.js官网网选择windows版本的下载即可：https:&#x2F;&#x2F;nodejs.cn&#x2F;download  2.安装node.js 3.验证安装WIN+R打开CMD管理员运行–&gt;输入node -v , npm -v  4,设置淘宝镜像源由于网段原因，设置镜像源可以更快的访问hexo博客 输入命令行： 1npm install -g cnpm --registry&#x3D;htt">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hexo博客安装步骤【Windows版】">
-<meta property="og:url" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、安装步骤1.下载node.js官网网选择windows版本的下载即可：https:&#x2F;&#x2F;nodejs.cn&#x2F;download  2.安装node.js 3.验证安装WIN+R打开CMD管理员运行–&gt;输入node -v , npm -v  4,设置淘宝镜像源由于网段原因，设置镜像源可以更快的访问hexo博客 输入命令行： 1npm install -g cnpm --registry&#x3D;htt">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766111698216.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766111822102.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766111963979.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766112842964.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766113024052.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766114564046.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766114998068.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766115683428.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766115939554.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766120989325.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766121639145.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766122199502.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766122238404.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766124810091.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766125090802.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766125478588.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766125446505.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766125863173.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766126312727.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766126288576.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766136465103.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766391334808.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/1766391416798.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766391627979.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766391760249.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766391843759.png">
-<meta property="og:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766391887223.png">
-<meta property="article:published_time" content="2025-12-19T02:15:41.000Z">
-<meta property="article:modified_time" content="2026-01-02T05:08:23.648Z">
-<meta property="article:author" content="Z n">
-<meta property="article:tag" content="基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/2025/12/19/Windows_hexo_deploy/1766111698216.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>hexo博客安装步骤【Windows版】 | Hexo</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
 
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
 
 <meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://Nianzzzz.github.io"></form>
-      </div>
-    </div>
-  </div>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
 </header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
 
-      <div class="outer">
-        <section id="main"><article id="post-Windows_hexo_deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/19/Windows_hexo_deploy/" class="article-date">
-  <time class="dt-published" datetime="2025-12-19T02:15:41.000Z" itemprop="datePublished">2025-12-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      hexo博客安装步骤【Windows版】
-    </h1>
-  
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
 
-      </header>
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="一、安装步骤"><a href="#一、安装步骤" class="headerlink" title="一、安装步骤"></a>一、安装步骤</h2><h3 id="1-下载node-js"><a href="#1-下载node-js" class="headerlink" title="1.下载node.js"></a>1.下载node.js</h3><p>官网网选择windows版本的下载即可：<a target="_blank" rel="noopener" href="https://nodejs.cn/download">https://nodejs.cn/download</a></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766111698216.png" alt="1766111698216"></p>
-<h3 id="2-安装node-js"><a href="#2-安装node-js" class="headerlink" title="2.安装node.js"></a>2.安装node.js</h3><p><img src="2025/12/19/Windows_hexo_deploy/1766111822102.png" alt="1766111822102"></p>
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">hexo博客安装步骤【Windows版】</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 19, 2025&nbsp;&nbsp;10:15:41</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="一、安装步骤"><a href="#一、安装步骤" class="headerlink" title="一、安装步骤"></a>一、安装步骤</h2><h3 id="1-下载node-js"><a href="#1-下载node-js" class="headerlink" title="1.下载node.js"></a>1.下载node.js</h3><p>官网网选择windows版本的下载即可：<a target="_blank" rel="noopener" href="https://nodejs.cn/download">https://nodejs.cn/download</a></p>
+<p><img src="1766111698216.png" alt="1766111698216"></p>
+<h3 id="2-安装node-js"><a href="#2-安装node-js" class="headerlink" title="2.安装node.js"></a>2.安装node.js</h3><p><img src="1766111822102.png" alt="1766111822102"></p>
 <h3 id="3-验证安装"><a href="#3-验证安装" class="headerlink" title="3.验证安装"></a>3.验证安装</h3><p>WIN+R打开CMD管理员运行–&gt;输入node -v , npm -v</p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766111963979.png" alt="1766111963979"></p>
+<p><img src="1766111963979.png" alt="1766111963979"></p>
 <h3 id="4-设置淘宝镜像源"><a href="#4-设置淘宝镜像源" class="headerlink" title="4,设置淘宝镜像源"></a>4,设置淘宝镜像源</h3><p>由于网段原因，设置镜像源可以更快的访问hexo博客</p>
 <p>输入命令行：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org 【MAC版本或Linux版本适用】</span><br></pre></td></tr></table></figure>
@@ -137,19 +224,19 @@
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
 
 <p>安装完成验证输入：cnpm(回车)</p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766112842964.png" alt="1766112842964"></p>
+<p><img src="1766112842964.png" alt="1766112842964"></p>
 <p>输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm -v 【查看版本】</span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766113024052.png" alt="1766113024052"></p>
+<p><img src="1766113024052.png" alt="1766113024052"></p>
 <h3 id="5-安装hexo"><a href="#5-安装hexo" class="headerlink" title="5.安装hexo"></a>5.安装hexo</h3><p>输入命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766114564046.png" alt="1766114564046"></p>
+<p><img src="1766114564046.png" alt="1766114564046"></p>
 <p>验证安装：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766114998068.png" alt="1766114998068"></p>
+<p><img src="1766114998068.png" alt="1766114998068"></p>
 <hr>
 <h2 id="二、使用hexo"><a href="#二、使用hexo" class="headerlink" title="二、使用hexo"></a>二、使用hexo</h2><h3 id="1-建立一个空的blog文件夹"><a href="#1-建立一个空的blog文件夹" class="headerlink" title="1.建立一个空的blog文件夹"></a>1.建立一个空的blog文件夹</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CMD命令创建文件夹：</span><br><span class="line"></span><br><span class="line">chdir #查看当前目录路径</span><br><span class="line"></span><br><span class="line">D: #①选择盘符，进入D盘</span><br><span class="line"></span><br><span class="line">dir #查看当前目录下的所有文件</span><br><span class="line"></span><br><span class="line">mkdir BLOG/blog #创建blog文件夹</span><br><span class="line"></span><br><span class="line">cd BLOG/blog #进入blog目录</span><br></pre></td></tr></table></figure>
 
@@ -159,15 +246,15 @@
 <p>CMD输入命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init #CMD</span><br><span class="line"></span><br><span class="line">sudo hexo init #MAC或Linux版本</span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766115683428.png" alt="1766115683428"></p>
+<p><img src="1766115683428.png" alt="1766115683428"></p>
 <p>查看是否生成内容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir </span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766115939554.png" alt="1766115939554"></p>
+<p><img src="1766115939554.png" alt="1766115939554"></p>
 <h3 id="3-启动hexo"><a href="#3-启动hexo" class="headerlink" title="3.启动hexo"></a>3.启动hexo</h3><p>输入命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br><span class="line"></span><br><span class="line">hexo server #三种启动方法均可</span><br><span class="line"></span><br><span class="line">npm run server</span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766120989325.png" alt="1766120989325"></p>
+<p><img src="1766120989325.png" alt="1766120989325"></p>
 <h3 id="4-创建一篇文章"><a href="#4-创建一篇文章" class="headerlink" title="4.创建一篇文章"></a>4.创建一篇文章</h3><p>确保在blog目录下</p>
 <p>输入命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;博客文章标题&quot;</span><br></pre></td></tr></table></figure>
@@ -180,7 +267,7 @@
 
 
 
-<h3 id="6-遇到生成错误问题如何解决"><a href="#6-遇到生成错误问题如何解决" class="headerlink" title="6.遇到生成错误问题如何解决"></a>6.遇到生成错误问题如何解决</h3><p><img src="2025/12/19/Windows_hexo_deploy/1766121639145.png" alt="1766121639145"></p>
+<h3 id="6-遇到生成错误问题如何解决"><a href="#6-遇到生成错误问题如何解决" class="headerlink" title="6.遇到生成错误问题如何解决"></a>6.遇到生成错误问题如何解决</h3><p><img src="1766121639145.png" alt="1766121639145"></p>
 <p>一般生成错误是因为语法格式问题出错</p>
 <p><strong>填写时务必注意</strong>：</p>
 <ul>
@@ -188,9 +275,9 @@
 <li><code>tags</code> 和 <code>categories</code> 下的列表项（如 <code>- 标签1</code>）<strong>必须用2个空格缩进</strong>。</li>
 <li>确保所有中英文标点符号为英文状态（尤其是冒号和空格）。</li>
 </ul>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766122199502.png" alt="1766122199502"></p>
+<p><img src="1766122199502.png" alt="1766122199502"></p>
 <p><strong>正确格式为：</strong></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766122238404.png" alt="1766122238404"></p>
+<p><img src="1766122238404.png" alt="1766122238404"></p>
 <h3 id="7-图片无法显示问题"><a href="#7-图片无法显示问题" class="headerlink" title="7.图片无法显示问题"></a>7.图片无法显示问题</h3><h4 id="7-1启用资源文件夹功能"><a href="#7-1启用资源文件夹功能" class="headerlink" title="7.1启用资源文件夹功能"></a>7.1<strong>启用资源文件夹功能</strong></h4><p>打开博客根目录下的 <code>_config.yml</code> 文件，找到 <code>post_asset_folder</code> 选项，将其值改为 <code>true</code>。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
 
@@ -225,15 +312,15 @@
 <p><strong>[图片描述] (同名文件夹名称&#x2F;图片名称)</strong></p>
 <hr>
 <h2 id="三、在GitHub上部署hexo"><a href="#三、在GitHub上部署hexo" class="headerlink" title="三、在GitHub上部署hexo"></a>三、在GitHub上部署hexo</h2><h3 id="1-打开并登录GitHub"><a href="#1-打开并登录GitHub" class="headerlink" title="1.打开并登录GitHub"></a>1.打开并登录GitHub</h3><p><strong>新建仓库</strong></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766124810091.png" alt="1766124810091"></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766125090802.png" alt="1766125090802"></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766125478588.png" alt="1766125478588"></p>
+<p><img src="1766124810091.png" alt="1766124810091"></p>
+<p><img src="1766125090802.png" alt="1766125090802"></p>
+<p><img src="1766125478588.png" alt="1766125478588"></p>
 <h3 id="2-回到命令行下载git包"><a href="#2-回到命令行下载git包" class="headerlink" title="2.回到命令行下载git包"></a>2.回到命令行下载git包</h3><p>blog目录下输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-deployer-git --save </span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766125446505.png" alt="1766125446505"></p>
+<p><img src="1766125446505.png" alt="1766125446505"></p>
 <h3 id="3-配置-config-yml文件"><a href="#3-配置-config-yml文件" class="headerlink" title="3.配置_config.yml文件"></a>3.配置_config.yml文件</h3><p>_config.yml文件在blog目录下可见</p>
-<h4 id="3-1打开并修改如下："><a href="#3-1打开并修改如下：" class="headerlink" title="3.1打开并修改如下："></a>3.1打开并修改如下：</h4><p><img src="2025/12/19/Windows_hexo_deploy/1766125863173.png" alt="1766125863173"></p>
+<h4 id="3-1打开并修改如下："><a href="#3-1打开并修改如下：" class="headerlink" title="3.1打开并修改如下："></a>3.1打开并修改如下：</h4><p><img src="1766125863173.png" alt="1766125863173"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"></span><br><span class="line">  type: git</span><br><span class="line"></span><br><span class="line">  repo: https://github.com/Nianzzzz/Nianzzzz.githubWindows_hexo_deploy.git #你的git仓库地址</span><br><span class="line"></span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 
 <p><strong>配置完成后保存</strong></p>
@@ -241,17 +328,17 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 
 <p><strong>部署失败将地址修改为SSH地址：</strong></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766126312727.png" alt="1766126312727"></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766126288576.png" alt="1766126288576"></p>
+<p><img src="1766126312727.png" alt="1766126312727"></p>
+<p><img src="1766126288576.png" alt="1766126288576"></p>
 <p><em><strong>安装失败请确保电脑已安装Git，否则需安装并配置其环境变量</strong></em></p>
 <p><strong>部署成功返回：</strong></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766136465103.png" alt="1766136465103"></p>
+<p><img src="1766136465103.png" alt="1766136465103"></p>
 <p><strong>部署失败原因：</strong></p>
 <p><em><strong>GitHub SSH 密钥对配置一下即可</strong></em></p>
 <h5 id="3-2-1配置密钥方法："><a href="#3-2-1配置密钥方法：" class="headerlink" title="3.2.1配置密钥方法："></a>3.2.1配置密钥方法：</h5><p><strong>打开git的bash（桌面右键打开）</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh #查看.ssh文件夹是否存在，里面是否有文件</span><br></pre></td></tr></table></figure>
 
-<p><img src="2025/12/19/Windows_hexo_deploy/1766391334808.png" alt="1766391334808"></p>
+<p><img src="1766391334808.png" alt="1766391334808"></p>
 <p>假如显示文件不存在</p>
 <p><strong>安装以下命令生成密钥：</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;xxx@xxx.com&quot;</span>  <span class="comment">// 将 &quot;xxx@xxx.com&quot; 替换为你自己GitHub的邮箱地址</span></span><br></pre></td></tr></table></figure>
@@ -259,11 +346,11 @@
 <p>执行成功后出现：</p>
 <p><img src="1766391416798.png" alt="1766391416798"></p>
 <p>也可以手动查看文件夹中是否生成rsa密钥</p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766391627979.png" alt="1766391627979"></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766391760249.png" alt="1766391760249"></p>
+<p><img src="1766391627979.png" alt="1766391627979"></p>
+<p><img src="1766391760249.png" alt="1766391760249"></p>
 <p><strong>将复制的内容粘贴到Github的ssh密钥配置窗口中：点击setting</strong></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766391843759.png" alt="1766391843759"></p>
-<p><img src="2025/12/19/Windows_hexo_deploy/1766391887223.png" alt="1766391887223"></p>
+<p><img src="1766391843759.png" alt="1766391843759"></p>
+<p><img src="1766391887223.png" alt="1766391887223"></p>
 <p><strong>检查是否配置成功：</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
@@ -280,133 +367,73 @@
 
 <p>再重复一遍密钥生成，然后复制密钥、配置密钥、检查密钥是否连接成功！</p>
 
-      
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/">https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%9F%BA%E4%BA%8EGitHub%E4%BB%93%E5%BA%93%E6%9E%84%E5%BB%BA%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%8CWindowsCMD%E7%89%88%E6%9C%AC%E7%9A%84%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/"># 基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/12/28/hello-world/">Hello World</a>
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://nianzzzz.github.io/2025/12/19/Windows_hexo_deploy/" data-id="cuidtJPv3XTNWkA9jEQgnxgFt" data-title="hexo博客安装步骤【Windows版】" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EGitHub%E4%BB%93%E5%BA%93%E6%9E%84%E5%BB%BA%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%8CWindowsCMD%E7%89%88%E6%9C%AC%E7%9A%84%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/" rel="tag">基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2025/12/28/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Hello World
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EGitHub%E4%BB%93%E5%BA%93%E6%9E%84%E5%BB%BA%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%8CWindowsCMD%E7%89%88%E6%9C%AC%E7%9A%84%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/" rel="tag">基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/%E5%9F%BA%E4%BA%8EGitHub%E4%BB%93%E5%BA%93%E6%9E%84%E5%BB%BA%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%8CWindowsCMD%E7%89%88%E6%9C%AC%E7%9A%84%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/" style="font-size: 10px;">基于GitHub仓库构建的hexo博客，WindowsCMD版本的安装步骤</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/12/28/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2025/12/19/Windows_hexo_deploy/">hexo博客安装步骤【Windows版】</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 Z n<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
 </body>
+
 </html>
