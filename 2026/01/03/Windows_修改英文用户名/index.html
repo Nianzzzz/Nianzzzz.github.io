@@ -13,7 +13,7 @@
 
 
 
-<title>Zhaonian&#39;s Hexo Blog</title>
+<title>告别路径乱码！将Windows中文用户名彻底改为英文的终极安全指南 | Zhaonian&#39;s Hexo Blog</title>
 
 
 
@@ -193,7 +193,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title"></h1>
+            <h1 class="post-title">告别路径乱码！将Windows中文用户名彻底改为英文的终极安全指南</h1>
             
                 <div class="post-meta">
                     
@@ -202,7 +202,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 2, 2026&nbsp;&nbsp;14:08:48</a>
+                        Date: <a href="#">January 3, 2026&nbsp;&nbsp;8:26:55</a>
                         </span>
                     
                     
@@ -211,37 +211,111 @@
         </header>
 
         <div class="post-content">
-            <h1 id="导入langchain-memory包失败"><a href="#导入langchain-memory包失败" class="headerlink" title="导入langchain.memory包失败"></a>导入langchain.memory包失败</h1><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><ul>
-<li><p><strong>已经下载了langchain的包，但是导入memory包的时候发现没有这个包</strong></p>
-<ul>
-<li><p>根据pycharm提示下载memory包，但是还是导入失败</p>
+            <h2 id="Windows如何将中文用户名修改为英文-一劳永逸"><a href="#Windows如何将中文用户名修改为英文-一劳永逸" class="headerlink" title="Windows如何将中文用户名修改为英文 [一劳永逸]"></a>Windows如何将中文用户名修改为英文 [一劳永逸]</h2><ul>
+<li><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><ul>
+<li><p>将Windows用户切换为Administrator</p>
 </li>
-<li><p>下载信息如下：</p>
+<li><p>以管理方式打开CMD输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> user administrator /active:yes</span><br></pre></td></tr></table></figure>
+
+<p><img src="1767401615196.png" alt="1767401615196"></p>
+<p>显现命令成功即可</p>
+</li>
+</ul>
+</li>
+<li><h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><ul>
+<li>注销当前用户切换至Administrator用户</li>
+</ul>
+<p><img src="1767401692077.png" alt="1767401692077"></p>
+<ul>
+<li>初次切换至Administrator时会有提示添加隐私内容</li>
+<li>全部不勾选–&gt;下一步即可</li>
+</ul>
+</li>
+<li><h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><ul>
+<li><p>直接进到C盘用户目录下修改用户名文件夹为英文</p>
+</li>
+<li><p>如若受阻：</p>
+<ul>
+<li>打开任务管理器–性能–资源监视器–CPU–搜索关联的句柄“你的中文用户名”</li>
+<li>结束所有的带中文用户名的进程，结束进程&#x2F;结束进程树</li>
+</ul>
+<p><img src="1767402179401.png" alt="1767402179401"></p>
+<p><img src="1767402366891.png" alt="1767402366891"></p>
+<p>​        <em><strong>这里我已经改为了英文，所以没有中文用户名的进程了</strong></em></p>
+</li>
+</ul>
+</li>
+<li><h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><ul>
+<li><p>英文用户名修改成功之后再继续以下操作</p>
+</li>
+<li><p>修改注册表</p>
+<ul>
+<li>开始菜单输入regedit 并以管理员方式打开：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">regedit</span><br></pre></td></tr></table></figure>
+
+<p>1.寻找路径：<strong>ProfileList</strong></p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</p>
+<p><img src="1767403449857.png" alt="1767403449857"></p>
+<p>2.寻找第二路径：<strong>User Manager</strong></p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\User Manager\Users</p>
+</li>
+</ul>
+</li>
+<li><h3 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h3><ul>
+<li>关闭Administrator账号</li>
+<li>以管理员方式启动CMD</li>
+<li>输入:</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> user administrator /active:no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注销Administrator账号，回到自己的用户界面</li>
+</ul>
+</li>
+<li><h3 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h3><ul>
+<li>更新环境变量</li>
+<li>此电脑–右键属性–高级系统设置–环境变量–找到用户变量</li>
+<li>将所有包含中文用户名的路径更改为英文</li>
+</ul>
+<p><img src="1767404333153.png" alt="1767404333153"></p>
+</li>
+<li><h3 id="第七步"><a href="#第七步" class="headerlink" title="第七步"></a>第七步</h3><ul>
+<li><p><strong>更新用户账户信息</strong></p>
+</li>
+<li><p>Win+R,输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">control userpasswords2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双击打开你的用户名并修改</p>
+</li>
+</ul>
+<p><img src="1767404572637.png" alt="1767404572637"></p>
+</li>
+<li><h3 id="第八步"><a href="#第八步" class="headerlink" title="第八步"></a>第八步</h3><ul>
+<li>重启电脑</li>
+<li>打开电脑你会发现之前涉及到你的中文用户路径下的应用全都不能用了</li>
+<li>此时别慌</li>
+<li>我们使用创建符号链接的方法解决这个问题</li>
+</ul>
+<p>① 以管理员身份打开CMD，并输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink /d &quot;C:\Users\你的中文用户名&quot; &quot;C:\Users\你修改的英文用户名&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当提示：链接成功时–打开C盘下的user文件夹–你会发现有一个与之前中文用户名一模一样的链接文件夹在最下面–此时就能使用之前的东西了</li>
+</ul>
+</li>
+</ul>
+<p><img src="1767405437323.png" alt="1767405437323"></p>
 <blockquote>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install langchain <span class="literal">-i</span> https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"></span><br><span class="line">pip install langchain<span class="literal">-community</span> <span class="literal">-ihttps</span>://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>以上内容在conda环境下下载的</strong></p>
-</li>
-</ul>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ul>
-<li><p><strong>更新langchain版本</strong></p>
-<ul>
-<li><p>方法如下：</p>
+<p><strong>此时 你的英文用户名已修改成功</strong></p>
+<p><strong>倘若 提示不能修改文件夹 定是进程受阻</strong></p>
+<p><strong>找到相关服务（如“MSPC Manager Service”），右键选择“停止”或“重新启动”即可</strong></p>
+</blockquote>
 <blockquote>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 pip 安装最新版（Conda 仓库可能不是最新版）</span></span><br><span class="line">pip install <span class="literal">--upgrade</span> langchain</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完整组件</span></span><br><span class="line">pip install langchain<span class="literal">-core</span> langchain<span class="literal">-community</span></span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="1767058772686.png" alt="1767058772686"></p>
-<ul>
-<li><strong>至此，问题解决！</strong><ul>
-<li><img src="1767059005576.png" alt="1767059005576"></li>
-</ul>
-</li>
-</ul>
+<p><em><strong>注意事项：</strong></em></p>
+<p><em><strong>1，备份重要数据：修改用户名涉及注册表操作，建议提前备份重要文件，以防万一。</strong></em><br><em><strong>2，谨慎操作注册表：确保按照步骤修改，避免误删关键项。</strong></em><br><em><strong>3，软件路径问题：部分软件可能仍需重新安装，确保路径正确。</strong></em><br><em><strong>4，桌面文件丢失：如果重启后桌面只剩“此电脑”和“回收站”，用符号链接方法即可恢复。</strong></em></p>
+</blockquote>
 
         </div>
 
@@ -256,7 +330,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nianzzzz.github.io/2026/01/02/langchain_memory/">https://nianzzzz.github.io/2026/01/02/langchain_memory/</a></span>
+                        <span><a href="https://nianzzzz.github.io/2026/01/03/Windows_%E4%BF%AE%E6%94%B9%E8%8B%B1%E6%96%87%E7%94%A8%E6%88%B7%E5%90%8D/">https://nianzzzz.github.io/2026/01/03/Windows_%E4%BF%AE%E6%94%B9%E8%8B%B1%E6%96%87%E7%94%A8%E6%88%B7%E5%90%8D/</a></span>
                     </p>
                 
                 
@@ -279,6 +353,10 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
+                    
+                        <a href="/tags/%E9%81%87%E5%88%B0%E6%9C%AC%E5%9C%B0%E8%8E%B7%E5%8F%96Github-SSH%E5%AF%86%E9%92%A5%E6%97%B6%E5%8F%97%E4%B8%AD%E6%96%87%E7%94%A8%E6%88%B7%E5%90%8D%E4%B9%B1%E7%A0%81%E4%B9%8B%E9%98%BB%EF%BC%8C%E6%95%85%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%EF%BC%8C%E7%9B%B4%E6%8E%A5%E4%BF%AE%E6%94%B9%E5%8E%9F%E7%94%A8%E6%88%B7%E5%90%8D%E4%B8%BA%E8%8B%B1%E6%96%87%EF%BC%8C%E5%8D%B3C%E7%9B%98%E4%B8%8B%E7%9A%84user%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E4%BF%AE%E6%94%B9%E4%B8%BA%E8%8B%B1%E6%96%87/"># 遇到本地获取Github_SSH密钥时受中文用户名乱码之阻，故一劳永逸，直接修改原用户名为英文，即C盘下的user文件夹下的用户名文件夹修改为英文</a>
+                    
+                        
                 </span>
             </div>
             <div>
@@ -289,10 +367,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2026/01/03/Windows_%E4%BF%AE%E6%94%B9%E8%8B%B1%E6%96%87%E7%94%A8%E6%88%B7%E5%90%8D/">告别路径乱码！将Windows中文用户名彻底改为英文的终极安全指南</a>
             
-            
-            <a class="next" rel="next" href="/2025/12/28/hello-world/">Hello World</a>
+            <a class="next" rel="next" href="/2026/01/02/langchain_memory/"></a>
             
         </section>
 
