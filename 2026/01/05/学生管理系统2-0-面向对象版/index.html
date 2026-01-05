@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>学生管理系统2.0[面向对象版] | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">学生管理系统2.0[面向对象版]</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 5, 2026&nbsp;&nbsp;16:32:28</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="一、编辑思路"><a href="#一、编辑思路" class="headerlink" title="一、编辑思路"></a>一、编辑思路</h2><h3 id="1-实现功能："><a href="#1-实现功能：" class="headerlink" title="1.实现功能："></a>1.实现功能：</h3><ul>
+<li><p>增加学生信息</p>
+</li>
+<li><p>删除学生信息</p>
+</li>
+<li><p>编辑学生信息</p>
+</li>
+<li><p>查看单个学生信息</p>
+</li>
+<li><p>查看所有学生信息</p>
+</li>
+<li><p>保存学生信息</p>
+</li>
+<li><p>加载学生信息</p>
+</li>
+</ul>
+<hr>
+<h3 id="2-使用面向对象思维分析"><a href="#2-使用面向对象思维分析" class="headerlink" title="2.使用面向对象思维分析"></a>2.使用面向对象思维分析</h3><p><em><strong>学生类，学生的属性信息为：学号，姓名，性别，年龄，手机号，描述信息</strong></em></p>
+<p><em><strong>学生管理系统的 具体业务的操作，即:增删改查，保存学生信息等…</strong></em></p>
+<ul>
+<li>类：<ul>
+<li>学生类：Student</li>
+<li>学生管理系统类：StudentCMS</li>
+</ul>
+</li>
+<li>对象：<ul>
+<li>创建一个学生对象：student  调用系统进行操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-源码及原理分析"><a href="#3-源码及原理分析" class="headerlink" title="3.源码及原理分析"></a>3.源码及原理分析</h3><h4 id="（1）创建Student-py文件用于编写Student学生类"><a href="#（1）创建Student-py文件用于编写Student学生类" class="headerlink" title="（1）创建Student.py文件用于编写Student学生类"></a>（1）创建Student.py文件用于编写Student学生类</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">该文件用于记录 学生类，学生的属性信息为：姓名，性别，年龄，手机号，描述信息</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义学生类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义魔法方法init记录学生的属性信息</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,<span class="built_in">id</span>,name,gender,age,phone,desc</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        该魔法方法用于记录学生的属性信息</span></span><br><span class="line"><span class="string">        :param id: 学号</span></span><br><span class="line"><span class="string">        :param name: 姓名</span></span><br><span class="line"><span class="string">        :param gender: 性别</span></span><br><span class="line"><span class="string">        :param age: 年龄</span></span><br><span class="line"><span class="string">        :param phone: 电话</span></span><br><span class="line"><span class="string">        :param desc: 描述</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">id</span> = <span class="built_in">id</span></span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.gender = gender</span><br><span class="line">        <span class="variable language_">self</span>.age = age</span><br><span class="line">        <span class="variable language_">self</span>.phone = phone</span><br><span class="line">        <span class="variable language_">self</span>.desc = desc</span><br><span class="line">        <span class="comment"># self.stu_list = []</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义魔法方法str打印学生的信息</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        该魔法方法用于打印学生信息</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;学号：<span class="subst">&#123;self.<span class="built_in">id</span>&#125;</span> 姓名:<span class="subst">&#123;self.name&#125;</span> 性别：<span class="subst">&#123;self.gender&#125;</span> 年龄：<span class="subst">&#123;self.age&#125;</span> 电话：<span class="subst">&#123;self.phone&#125;</span> 描述信息：<span class="subst">&#123;self.desc&#125;</span>&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 添加repr方法，这样打印列表时会调用这个方法</span></span><br><span class="line">    <span class="comment"># def __repr__(self):</span></span><br><span class="line">    <span class="comment">#     return self.__str__()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打印列表</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_list</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable language_">self</span>.stu_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    s1 = Student(<span class="string">&#x27;01&#x27;</span>,<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;12411315141&#x27;</span>,<span class="string">&#x27;家住......&#x27;</span>)</span><br><span class="line">    s1.stu_list.append(s1)</span><br><span class="line">    s1.show_list()</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）创建Student-CMS-py文件用于编写StudentCMS学生信息管理系统类"><a href="#（2）创建Student-CMS-py文件用于编写StudentCMS学生信息管理系统类" class="headerlink" title="（2）创建Student_CMS.py文件用于编写StudentCMS学生信息管理系统类"></a>（2）创建Student_CMS.py文件用于编写StudentCMS学生信息管理系统类</h4><h5 id="模块分析1"><a href="#模块分析1" class="headerlink" title="模块分析1"></a>模块分析1</h5><ul>
+<li>头部信息：模块介绍+导包+创建全局列表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">该文件用于 完成学生管理系统的 具体业务的操作，即:增删改查，保存学生信息等...</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment"># 导入Student模块</span></span><br><span class="line"><span class="keyword">from</span> Student <span class="keyword">import</span> Student</span><br><span class="line">f_student = []</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="模块分析2"><a href="#模块分析2" class="headerlink" title="模块分析2"></a>模块分析2</h5><ul>
+<li>定义学生信息管理系统类，并搭建框架</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.定义学生信息管理系统类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StudentCMS</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment"># 2.定义对象初始化属性</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3.定义函数，实现展示菜单界面功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_view</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4.定义函数，实现添加学生信息功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_student</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 5.定义函数，实现删除学生信息功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">del_student</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 6.定义函数，实现编辑学生信息功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">edit_student</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 7.定义函数，实现查看单个学生信息功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">view_student</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 8.定义函数，实现查看所有学生信息功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">view_all</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 9.定义函数，实现保存学生信息至文件夹中的功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_student</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 10.定义函数，实现加载文件信息至系统查看功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_student</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 11.定义函数，实现系统操作逻辑功能</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">start</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="模块分析3"><a href="#模块分析3" class="headerlink" title="模块分析3"></a>模块分析3</h5><ul>
+<li>实现菜单和操作逻辑界面</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show_view</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>*<span class="number">39</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>*<span class="number">16</span>+<span class="string">&#x27;学生管理系统2.0&#x27;</span>+<span class="string">&#x27;-&#x27;</span>*<span class="number">16</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 1.添加学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 2.删除学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 3.修改学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 4.查看单个学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 5.查看所有学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 6.保存学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 7.加载学生信息 &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\t 0.退出系统 &#x27;</span>+ <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span> * <span class="number">39</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">start</span>(<span class="params">self</span>):     </span><br><span class="line">      <span class="comment"># 调用菜单界面功能</span></span><br><span class="line">       <span class="variable language_">self</span>.show_view()</span><br><span class="line">      <span class="comment"># 操作逻辑实现</span></span><br><span class="line">       <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">           input_num = <span class="built_in">input</span>(<span class="string">&#x27;请输入您要操作的数字：&#x27;</span>)</span><br><span class="line">           <span class="keyword">if</span> input_num == <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;🧍‍♂️添加学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.add_student()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;2&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;🏌️‍♀️删除学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.del_student()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;3&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;🚶‍♂️修改学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.edit_student()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;4&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;📃查询单个学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.view_student()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;5&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;📜所有学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.view_all()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;6&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;🏁保存学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.save_student()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;7&#x27;</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;🚀加载学生信息&#x27;</span> + <span class="string">&#x27;-&#x27;</span> * <span class="number">16</span>+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               <span class="variable language_">self</span>.load_student()</span><br><span class="line">           <span class="keyword">elif</span> input_num == <span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">               back_judge = <span class="built_in">input</span>(<span class="string">&#x27;您确定要退出嘛？【Y/N】&#x27;</span>).strip()</span><br><span class="line">               <span class="keyword">if</span> back_judge.lower() == <span class="string">&#x27;y&#x27;</span>:</span><br><span class="line">                   <span class="built_in">print</span>(<span class="string">&#x27;欢迎您下次使用!&#x27;</span>)</span><br><span class="line">                   <span class="keyword">break</span></span><br><span class="line">               <span class="keyword">elif</span> back_judge.lower() == <span class="string">&#x27;n&#x27;</span>:</span><br><span class="line">                   <span class="built_in">print</span>(<span class="string">&#x27;欢迎回来~&#x27;</span>)</span><br><span class="line">                   <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">               <span class="keyword">else</span>:</span><br><span class="line">                   <span class="built_in">print</span>(<span class="string">&#x27;请输入提示的内容！&#x27;</span>)</span><br><span class="line">                   <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">           <span class="keyword">else</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n请输入正确的数字\n&#x27;</span>)</span><br><span class="line">               <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line"></span><br><span class="line">           <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="模块分析4"><a href="#模块分析4" class="headerlink" title="模块分析4"></a>模块分析4</h5><ul>
+<li>实现添加学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_student</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># print(&#x27;\n&#x27; + &#x27;*&#x27; * 16 + &#x27;输入\&#x27;0\&#x27;返回菜单&#x27;+ &#x27;*&#x27; * 16 + &#x27;\n&#x27;)</span></span><br><span class="line">        <span class="comment"># id = input(&#x27;请输入学生学号(如:01)/(输入\&#x27;0\&#x27;返回菜单)：&#x27;).strip()</span></span><br><span class="line">        <span class="comment"># if id != &#x27;0&#x27;:</span></span><br><span class="line">        <span class="built_in">id</span> = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生编号：&#x27;</span>).strip()</span><br><span class="line">        name = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生姓名：&#x27;</span>).strip()</span><br><span class="line">        gender = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生性别：&#x27;</span>).strip()</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                age = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入学生年龄：&#x27;</span>))</span><br><span class="line">                <span class="keyword">if</span> age &lt; <span class="number">0</span> <span class="keyword">or</span> age &gt;<span class="number">200</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;请输入正确的年龄！&#x27;</span>)</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span> Exception :</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;请输入一个正整数&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">        phone = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生联系电话：&#x27;</span>).strip()</span><br><span class="line">        desc = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生描述：&#x27;</span>).strip()</span><br><span class="line">        student = Student(<span class="built_in">id</span>,name, gender, age, phone, desc)</span><br><span class="line">        <span class="built_in">print</span>(student)</span><br><span class="line">        <span class="variable language_">self</span>.stu_list.append(student)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;添加成功！！！&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="模块分析5"><a href="#模块分析5" class="headerlink" title="模块分析5"></a>模块分析5</h5><ul>
+<li>实现删除学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">del_student</span>(<span class="params">self</span>):</span><br><span class="line">       <span class="keyword">for</span> student <span class="keyword">in</span> <span class="variable language_">self</span>.stu_list:</span><br><span class="line">           <span class="built_in">print</span>(student)</span><br><span class="line">       i = <span class="number">0</span></span><br><span class="line">       <span class="keyword">while</span> i&lt;<span class="number">3</span>:</span><br><span class="line">           <span class="keyword">if</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.stu_list) != <span class="number">0</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;您总共有三次操作机会&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               student_del_id = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生学号(如：01)：&#x27;</span>).strip()</span><br><span class="line">               <span class="keyword">for</span> student <span class="keyword">in</span> <span class="variable language_">self</span>.stu_list:</span><br><span class="line">                   <span class="built_in">print</span>(<span class="string">&#x27;\n正在查找学生信息，请稍等~\n&#x27;</span>)</span><br><span class="line">                   time.sleep(<span class="number">1.5</span>)</span><br><span class="line">                   <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(student, Student):</span><br><span class="line">                       <span class="built_in">print</span>(<span class="string">&#x27;该学生不为表中的信息，或已存储至文件，您没有删除权限&#x27;</span>)</span><br><span class="line">                       <span class="keyword">break</span></span><br><span class="line">                   <span class="keyword">else</span>:</span><br><span class="line">                       <span class="keyword">if</span> student_del_id == student.<span class="built_in">id</span>:</span><br><span class="line">                           <span class="built_in">print</span>(student)</span><br><span class="line">                           is_or_not = <span class="built_in">input</span>(<span class="string">f&#x27;您确定要删除学号为：<span class="subst">&#123;student_del_id&#125;</span>的学生嘛？(Y/N):&#x27;</span>).strip().upper()</span><br><span class="line">                           <span class="keyword">if</span> is_or_not.lower() == <span class="string">&#x27;y&#x27;</span>:</span><br><span class="line">                               <span class="variable language_">self</span>.stu_list.remove(student)</span><br><span class="line">                               <span class="built_in">print</span>(<span class="string">f&#x27;学号为：<span class="subst">&#123;student_del_id&#125;</span> 的学生已删除！&#x27;</span>)</span><br><span class="line">                               <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">                           <span class="keyword">else</span>:</span><br><span class="line">                               <span class="keyword">pass</span></span><br><span class="line">                       <span class="keyword">else</span>:</span><br><span class="line">                           <span class="built_in">print</span>(<span class="string">f&#x27; 学号不存在 (温馨提示：您还有<span class="subst">&#123;<span class="number">2</span>-i&#125;</span>次输入机会！)&#x27;</span>)</span><br><span class="line">           <span class="keyword">else</span>:</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n表中暂无学生信息，请稍后重试！！！\n&#x27;</span>)</span><br><span class="line">               <span class="keyword">break</span></span><br><span class="line">           i += <span class="number">1</span></span><br><span class="line">       <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="模块分析6"><a href="#模块分析6" class="headerlink" title="模块分析6"></a>模块分析6</h5><ul>
+<li>实现编辑&#x2F;修改学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">edit_student</span>(<span class="params">self</span>):</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i&lt;<span class="number">3</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.stu_list) != <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;您总共有三次操作机会&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">            edit_id = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生编号(如：01)：&#x27;</span>).strip()</span><br><span class="line">            <span class="keyword">for</span> student <span class="keyword">in</span> <span class="variable language_">self</span>.stu_list:</span><br><span class="line">                <span class="keyword">if</span> student.<span class="built_in">id</span> == edit_id:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&#x27;当前学生信息：\n<span class="subst">&#123;student&#125;</span>&#x27;</span>)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;请输入您要修改的内容&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">16</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                    student.name = <span class="built_in">input</span>(<span class="string">&#x27;名字(回车可跳过此修改)：&#x27;</span>)</span><br><span class="line">                    student.gender = <span class="built_in">input</span>(<span class="string">&#x27;年龄(回车可跳过此修改)：&#x27;</span>)</span><br><span class="line">                    student.age = <span class="built_in">input</span>(<span class="string">&#x27;性别(回车可跳过此修改)：&#x27;</span>)</span><br><span class="line">                    student.phone = <span class="built_in">input</span>(<span class="string">&#x27;联系电话(回车可跳过此修改)：&#x27;</span>)</span><br><span class="line">                    student.desc = <span class="built_in">input</span>(<span class="string">&#x27;学生描述(回车可跳过此修改)：&#x27;</span>)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&#x27;学号为：<span class="subst">&#123;edit_id&#125;</span> 的学生信息修改成功！&#x27;</span>)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&#x27;修改后的学生信息：\n<span class="subst">&#123;student&#125;</span>&#x27;</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&#x27;表中无学生信息，请添加后重试！\n您还有<span class="subst">&#123;<span class="number">2</span>-i&#125;</span>次机会&#x27;</span>)</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;\n表中暂无学生信息，请添加后重试！\n&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="模块分析7"><a href="#模块分析7" class="headerlink" title="模块分析7"></a>模块分析7</h5><ul>
+<li>实现查看单个学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">view_student</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.stu_list != []:</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;<span class="number">3</span>:</span><br><span class="line">            student_id = <span class="built_in">input</span>(<span class="string">&#x27;请输入学生学号(如：01)：&#x27;</span>).strip()</span><br><span class="line">            <span class="keyword">for</span> student <span class="keyword">in</span> <span class="variable language_">self</span>.stu_list:</span><br><span class="line">                <span class="keyword">if</span> student_id == student.<span class="built_in">id</span>:</span><br><span class="line">                    <span class="built_in">print</span>(student)</span><br><span class="line">                    <span class="built_in">print</span>()</span><br><span class="line">                    <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;学号不存在，请重新输入(温馨提示：您有三次机会!!!)&#x27;</span>)</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;\n表中暂无学生信息！\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="模块分析8"><a href="#模块分析8" class="headerlink" title="模块分析8"></a>模块分析8</h5><ul>
+<li>实现查询所有学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">view_all</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.stu_list !=[]:</span><br><span class="line">        <span class="keyword">for</span> student <span class="keyword">in</span> <span class="variable language_">self</span>.stu_list:</span><br><span class="line">            <span class="built_in">print</span>(student)</span><br><span class="line">            <span class="built_in">print</span>()</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> f_student != []:</span><br><span class="line">        <span class="keyword">for</span> student <span class="keyword">in</span> f_student:</span><br><span class="line">            <span class="built_in">print</span>(student)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;以上为文件内容，无编辑权限！&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;\n表中暂无学生信息！\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="模块分析9"><a href="#模块分析9" class="headerlink" title="模块分析9"></a>模块分析9</h5><ul>
+<li>实现保存学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">save_student</span>(<span class="params">self</span>):</span><br><span class="line">       <span class="comment"># 表里如果没有数据，就重写/覆盖</span></span><br><span class="line">       <span class="keyword">if</span> <span class="variable language_">self</span>.stu_list == []:</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">&#x27;\n表中暂无学生信息，无法保存！\n&#x27;</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line">           <span class="comment"># 判断表里有数据，则添加</span></span><br><span class="line">           <span class="keyword">for</span> student <span class="keyword">in</span> <span class="variable language_">self</span>.stu_list:</span><br><span class="line">               dst_f = <span class="built_in">open</span>(<span class="string">&#x27;./学生信息.txt&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">               dst_f.write(<span class="built_in">str</span>(student) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">               dst_f.close()</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;正在保存文件请稍等~&#x27;</span>)</span><br><span class="line">               time.sleep(<span class="number">1.5</span>)</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">&#x27;\n文件保存成功!\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">               <span class="comment"># 使用open的方式查看文件内容</span></span><br><span class="line">               src_f = <span class="built_in">open</span>(<span class="string">&#x27;./学生信息.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">               stu_view = src_f.read()</span><br><span class="line">               <span class="built_in">print</span>(stu_view)</span><br><span class="line">               src_f.close()</span><br><span class="line">               <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="模块分析10"><a href="#模块分析10" class="headerlink" title="模块分析10"></a>模块分析10</h5><ul>
+<li>实现加载学生信息功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">load_student</span>(<span class="params">self</span>):</span><br><span class="line">    src_f = <span class="built_in">open</span>(<span class="string">&#x27;./学生信息.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    stu_view = src_f.read()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;正在加载学生信息，请稍等~&#x27;</span>)</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(stu_view)</span><br><span class="line">    f_student.append(stu_view)</span><br><span class="line">    src_f.close()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n信息加载成功!\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">self</span>.start()</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-创建main-py文件，用于实现启动系统功能"><a href="#3-创建main-py文件，用于实现启动系统功能" class="headerlink" title="(3) 创建main.py文件，用于实现启动系统功能"></a>(3) 创建main.py文件，用于实现启动系统功能</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入Student_CMS模块 调用其功能</span></span><br><span class="line"><span class="keyword">from</span> Student_CMS <span class="keyword">import</span> StudentCMS</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建主函数，创建对象student 调用StudentCMS类 并调用启动系统功能 实现系统操作</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    student = StudentCMS()</span><br><span class="line">    student.start()</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><em><strong>至此系统搭建完毕</strong></em></p>
+<p><em><strong>系统能够实现学生信息的增删改查</strong></em></p>
+<p><em><strong>新增保存信息和加载文件信息的功能</strong></em></p>
+<p><em><strong>感谢您的查看，您的支持就是我写博客的动力，加油！💪</strong></em></p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2026/01/05/%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F2-0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%88/">https://nianzzzz.github.io/2026/01/05/%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F2-0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%88/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E4%BD%BF%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E7%BB%B4%E5%86%8D%E4%B8%80%E6%AC%A1%E5%AE%9E%E7%8E%B0%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%84%E9%A1%B9%E5%8A%9F%E8%83%BD%EF%BC%8C%E4%BD%BF%E4%BB%A3%E7%A0%81%E6%9B%B4%E5%8A%A0%E7%AE%80%E6%B4%81%E8%A7%84%E8%8C%83/"># 使用面向对象思维再一次实现学生管理系统的各项功能，使代码更加简洁规范~</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2026/01/03/Windows_%E4%BF%AE%E6%94%B9%E8%8B%B1%E6%96%87%E7%94%A8%E6%88%B7%E5%90%8D/">告别路径乱码！将Windows中文用户名彻底改为英文的终极安全指南</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
