@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>机器学习概述 | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">机器学习概述</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 25, 2026&nbsp;&nbsp;12:11:21</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="机器学习概述"><a href="#机器学习概述" class="headerlink" title="机器学习概述"></a>机器学习概述</h1><h2 id="一、课程大纲介绍"><a href="#一、课程大纲介绍" class="headerlink" title="一、课程大纲介绍"></a>一、课程大纲介绍</h2><h3 id="1-AI大模型课程大纲"><a href="#1-AI大模型课程大纲" class="headerlink" title="1. AI大模型课程大纲"></a>1. AI大模型课程大纲</h3><p><img src="1769218855264.png" alt="1769218855264"></p>
+<h3 id="2-机器学习"><a href="#2-机器学习" class="headerlink" title="2. 机器学习"></a>2. 机器学习</h3><h4 id="2-1-机器学习概述"><a href="#2-1-机器学习概述" class="headerlink" title="2.1 机器学习概述"></a>2.1 机器学习概述</h4><p><img src="1769220822008.png" alt="1769220822008"></p>
+<ul>
+<li><strong>理解机器学习中的行和列</strong><ul>
+<li>&#x3D;&#x3D;行：样本&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;列：特征&#x2F;标签&#x3D;&#x3D;</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769220767973.png" alt="1769220767973"></p>
+<h5 id="2-1-1-AI、ML、DL之间的关系"><a href="#2-1-1-AI、ML、DL之间的关系" class="headerlink" title="2.1.1 AI、ML、DL之间的关系"></a>2.1.1 AI、ML、DL之间的关系</h5><ul>
+<li><strong>名词解析：</strong><ul>
+<li><strong>&#x3D;&#x3D;AI：Artificial Intelligence 人工智能&#x3D;&#x3D;</strong></li>
+<li><strong>&#x3D;&#x3D;ML：Machine Learning 机器学习&#x3D;&#x3D;</strong></li>
+<li><strong>&#x3D;&#x3D;DL：Deep Learning 深度学习&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><strong>AI、ML、DL关系</strong><ul>
+<li>ML机器学习是实现人工智能的一种方式&#x2F;途径</li>
+<li>DL深度学习是机器学习下的一个分支&#x2F;机器学习的子集</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-2-2-AI的发展"><a href="#2-2-2-AI的发展" class="headerlink" title="2.2.2 AI的发展"></a>2.2.2 AI的发展</h5><ul>
+<li><p><strong>发展史：</strong></p>
+<ul>
+<li><p><strong>&#x3D;&#x3D;人工智能元年：1956年&#x3D;&#x3D;</strong>（达特茅斯会议上首次提出”人工智能“概念）</p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>人工智能之父：约翰·麦卡锡</strong>&#x3D;&#x3D;</p>
+</li>
+<li><p><strong>神经网络、深度学习流派起</strong></p>
+<ul>
+<li>2012年 ：<strong>AlexNet</strong>深度学习的开山之作,计算机视觉深度神经网络方法研究兴</li>
+<li>2015年：<strong>何凯明的残差网络</strong>,让深度神经网络达到前所未有的深度</li>
+<li>2016年：<strong>GoogleAlphaGO战胜李世石</strong>(人工智能第三次浪潮)</li>
+</ul>
+</li>
+<li><p><strong>大规模预训练模型</strong></p>
+<ul>
+<li>2017年：**《Attention Is All You Need》**论文发表</li>
+<li>2017年：自然语言处理NLP的<strong>框架出现Transformer</strong></li>
+<li>2018年：<strong>Bert和CPT的出现</strong>，进入到大模型时期</li>
+<li><strong>2022年</strong>：chatGPT<strong>AIGC发展的阶段</strong></li>
+<li>2023年：大模型技术突破，引发全球热潮</li>
+<li>2024年：AI应用大规模落地,硬件与场景深度融合</li>
+<li><strong>2025年</strong>：<strong>开启智能体时代</strong>,AI自主性提升</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769232593547.png" alt="1769232593547"></p>
+<h5 id="2-2-3-人工智能三要素"><a href="#2-2-3-人工智能三要素" class="headerlink" title="2.2.3 人工智能三要素"></a>2.2.3 人工智能三要素</h5><ul>
+<li><strong>数据：&#x3D;&#x3D;数据决定了训练效果的上限&#x3D;&#x3D;</strong></li>
+<li><strong>算法：为了逼近这个上限</strong></li>
+<li><strong>算力：为了逼近这个上限</strong></li>
+</ul>
+<p><img src="1769221020430.png" alt="1769221020430"></p>
+<p><img src="1769221434894.png" alt="1769221434894"></p>
+<p><img src="1769221745266.png" alt="1769221745266"></p>
+<p><img src="1769221993358.png" alt="1769221993358"></p>
+<h5 id="2-2-4-数据相关概念"><a href="#2-2-4-数据相关概念" class="headerlink" title="2.2.4 数据相关概念"></a>2.2.4 数据相关概念</h5><ul>
+<li><strong>样本（sample）：每行数据都是一个样本</strong></li>
+<li><strong>特征（feature）：要参考的那些列 –  [[特征]]</strong></li>
+<li><strong>标签（label）：要预测的那一列  –  [标签]</strong></li>
+<li><strong>数据集：多个样本组成的数据</strong><ul>
+<li><strong>数据结构划分：</strong><ul>
+<li><strong>结构化数据</strong>：所有数据都能快速转换为二维表格形式的数据–**&#x3D;&#x3D;excel表,sql表,csv&#x3D;&#x3D;(**固定分隔符分隔的数据)–张三,18   </li>
+<li><strong>非结构化数据</strong> ：所有数据都不能转换为二维表格形式的数据–<strong>&#x3D;&#x3D;图片,音频,视频&#x3D;&#x3D;</strong></li>
+<li><strong>半结构化数据</strong>：部分能转为二维表格数据,部分不能转换–<strong>&#x3D;&#x3D;json,xml…&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769223112640.png" alt="1769223112640"></p>
+<p><img src="1769223817204.png" alt="1769223817204"></p>
+<p><img src="1769224094852.png" alt="1769224094852"></p>
+<p><img src="1769224838606.png" alt="1769224838606"></p>
+<h5 id="2-2-5-数据集划分"><a href="#2-2-5-数据集划分" class="headerlink" title="2.2.5 数据集划分"></a>2.2.5 数据集划分</h5><ul>
+<li><p>&#x3D;&#x3D;<strong>数据集按照一定的比例（8：2&#x2F;7：3）划分训练集</strong>&#x3D;&#x3D;</p>
+</li>
+<li><p><strong>训练集</strong></p>
+<ul>
+<li>训练模型需要的数据</li>
+<li>预测结果标准命名规范：<ul>
+<li>logits  –  分数  –  举例：[猫的分数10,狗的分数40]</li>
+<li>probs  –  概率  –  举例：[猫的概率0.2，狗的概率0.8]</li>
+<li>pred  –  预测标签结果  –  最大概率就是预测结果：狗</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>测试集</strong></p>
+<ul>
+<li>测试模型需要的数据</li>
+</ul>
+</li>
+<li><p><strong>&#x3D;&#x3D;训练集：training set&#x3D;&#x3D;</strong></p>
+</li>
+<li><p><strong>&#x3D;&#x3D;测试集：testing set&#x3D;&#x3D;</strong></p>
+</li>
+<li><p><strong>特征用x表示，标签用y表示</strong></p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>x_train：训练集特征</strong>&#x3D;&#x3D;</p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>y_train：训练集标签</strong>&#x3D;&#x3D;</p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>x_test：测试集特征</strong>&#x3D;&#x3D;</p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>y_test：测试集标签</strong>&#x3D;&#x3D;</p>
+</li>
+</ul>
+<p><img src="1769226850968.png" alt="1769226850968"></p>
+<h5 id="2-2-6-算法的分类"><a href="#2-2-6-算法的分类" class="headerlink" title="2.2.6 算法的分类"></a>2.2.6 算法的分类</h5><ul>
+<li><strong>有监督学习：</strong><ul>
+<li>所有样本都有标签<ul>
+<li>标签是连续的：回归任务  –  示例1：预测房价</li>
+<li>标签是不连续&#x2F;离散的：分类任务  –  示例1：预测电影类型；示例2：预测就业薪资等级<ul>
+<li>&#x3D;&#x3D;分类任务的本质已经做过了回归任务&#x3D;&#x3D;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>无监督学习：</strong><ul>
+<li>所有样本都无标签：无标签典型的是聚类任务</li>
+</ul>
+</li>
+<li><strong>半监督学习：</strong><ul>
+<li>部分有标签，部分没有标签  –  &#x3D;&#x3D;好处：提高了标记效率，降低了标记成本&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li><strong>强化学习：</strong><ul>
+<li>&#x3D;&#x3D;智能体以获取更多的累计奖励为目的，重复学习，从而达到训练目标&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li><strong>……</strong></li>
+</ul>
+<p><img src="1769239486349.png" alt="1769239486349"></p>
+<p><img src="1769238993440.png" alt="1769238993440"></p>
+<p><img src="1769239105642.png" alt="1769239105642"></p>
+<p><img src="1769239371477.png" alt="1769239371477"></p>
+<h5 id="2-2-7-机器学习流程"><a href="#2-2-7-机器学习流程" class="headerlink" title="2.2.7 机器学习流程"></a>2.2.7 机器学习流程</h5><ul>
+<li><strong>准备数据</strong></li>
+<li><strong>数据预处理</strong></li>
+<li><strong>特征工程</strong></li>
+<li><strong>机器学习（模型训练）</strong></li>
+<li><strong>模型评估</strong></li>
+<li><strong>模型预测</strong></li>
+<li><strong>模型部署上线</strong></li>
+</ul>
+<p><img src="1769240778482.png" alt="1769240778482"></p>
+<p><img src="1769241825737.png" alt="1769241825737"></p>
+<ul>
+<li>什么是特征工程：<ul>
+<li>&#x3D;&#x3D;专家利用专业的背景知识和技巧处理数据，让机器学习算法效果最好，这个过程就叫特征工程&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li><em><strong>特征工程步骤：</strong></em><ul>
+<li><strong>特征提取</strong>：从原始数据中提取出与任务相关的特征</li>
+<li><strong>特征预处理</strong>：特征对模型产生影响;因量纲问题，鲁棒性较差&#x2F;有些特征对模型影响大、有些影响小</li>
+<li><strong>&#x3D;&#x3D;量纲 &#x3D; 单位&#x3D;&#x3D;</strong><ul>
+<li><strong>归一化</strong>：<ul>
+<li><strong>（当前值-最小值）&#x2F;（最大值-最小值）</strong></li>
+</ul>
+</li>
+<li><strong>&#x3D;&#x3D;标准化（掌握）&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><strong>特征降维</strong>：将原始数据的维度降低，叫做特征降维</li>
+<li><strong>特征选择</strong>：原始数据特征很多，但是对模型训练相关是其中一个特征集合子集</li>
+<li><strong>特征组合</strong>：把多个的特征合并成一个特征。一般利用乘法或加法来完成</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769254216527.png" alt="1769254216527"></p>
+<p><img src="1769242313393.png" alt="1769242313393"></p>
+<p><img src="1769242424805.png" alt="1769242424805"></p>
+<p><img src="1769243004537.png" alt="1769243004537"></p>
+<p><img src="1769259250529.png" alt="1769259250529"></p>
+<p><img src="1769243769092.png" alt="1769243769092"></p>
+<h5 id="2-2-8-评估模型表现情况"><a href="#2-2-8-评估模型表现情况" class="headerlink" title="2.2.8 评估模型表现情况"></a>2.2.8 评估模型表现情况</h5><ul>
+<li><strong>拟合：（训练集和测试集）</strong><ul>
+<li>欠拟合：训练集表现差，测试集表现也差</li>
+<li>过拟合：训练集表现好，但测试集表现差</li>
+<li>正好拟合：训练集和测试集表现都好</li>
+</ul>
+</li>
+<li><strong>泛化：（未知数据集）</strong><ul>
+<li>指在未知数据集上模型的拟合情况&#x2F;表现好坏的情况</li>
+</ul>
+</li>
+<li><strong>奥卡姆剃刀原则：</strong><ul>
+<li>&#x3D;&#x3D;当模型的泛化能力相当时，优先选择简单的模型&#x3D;&#x3D;</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769244587676.png" alt="1769244587676"></p>
+<p><img src="1769244709650.png" alt="1769244709650"></p>
+<p><img src="1769245256602.png" alt="1769245256602"></p>
+<p><img src="1769245649237.png" alt="1769245649237"></p>
+<h5 id="2-2-9-机器学习环境准备"><a href="#2-2-9-机器学习环境准备" class="headerlink" title="2.2.9 机器学习环境准备"></a>2.2.9 机器学习环境准备</h5><ul>
+<li><strong>使用Anacanda虚拟环境</strong><ul>
+<li>创建虚拟环境：conda create –name 虚拟环境名称 python&#x3D;版本号(一般使用3.9&#x2F;10&#x2F;11)</li>
+<li>查看已有的虚拟环境：conda env list</li>
+<li>切换虚拟环境：确保自己在系统环境下而不在任何其他环境下（包括base和其他虚拟环境）<ul>
+<li>conda activate 虚拟环境名称</li>
+</ul>
+</li>
+<li>退出虚拟环境：conda deactivate</li>
+</ul>
+</li>
+<li>&#x3D;&#x3D;安装机器学习库：pip install scikit-learn&#x3D;&#x3D;</li>
+<li><strong>pycharm关联虚拟环境：</strong></li>
+</ul>
+<p><img src="1769247484572.png" alt="1769247484572"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2026/01/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/">https://nianzzzz.github.io/2026/01/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%90%8D%E8%AF%8D%E8%A7%A3%E6%9E%90-%E4%BB%8B%E7%BB%8D/"># 机器学习基本概念及名词解析/介绍</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2026/01/21/RFM%E4%BC%9A%E5%91%98%E4%BB%B7%E5%80%BC%E5%BA%A6%E6%A8%A1%E5%9E%8B%E6%A1%88%E4%BE%8B/">RFM会员价值度模型案例</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
