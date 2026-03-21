@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>ollama私有化部署 | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ollama私有化部署</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 26, 2025&nbsp;&nbsp;8:31:34</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="项目名称–《小N智能聊天机器人》"><a href="#项目名称–《小N智能聊天机器人》" class="headerlink" title="项目名称–《小N智能聊天机器人》"></a>项目名称–《小N智能聊天机器人》</h2><h3 id="一、配置环境"><a href="#一、配置环境" class="headerlink" title="一、配置环境"></a>一、配置环境</h3><h4 id="1-下载依赖"><a href="#1-下载依赖" class="headerlink" title="1.下载依赖"></a>1.下载依赖</h4><ul>
+<li><em><strong>前提条件：pycharm中安装配置了Anaconda</strong></em></li>
+</ul>
+<p><img src="1766802087032.png" alt="1766802087032"></p>
+<ul>
+<li><strong>找到Anaconda ， 在Anaconda Prompt 右键管理员打开 命令窗口</strong></li>
+</ul>
+<p><img src="1766802145408.png" alt="1766802145408"></p>
+<ul>
+<li><p><strong>依次执行上述命令，安装依赖及安装包</strong></p>
+<p><em><strong>或直接执行以下命令即可：</strong></em></p>
+</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install streamlit==<span class="number">1.32</span>.<span class="number">0</span> <span class="literal">-i</span> https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p><img src="1766802413064.png" alt="1766802413064"></p>
+<ul>
+<li><strong>检查streamlit 是否安装 ，查看版本</strong></li>
+</ul>
+<blockquote>
+<p><em><strong>提示：1.32版本的streamlit是搭配python3.12一起使用的，具体版本根据自己的python解释器的版本对应选择即可</strong></em></p>
+</blockquote>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">conda list streamlit</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="1766802700107.png" alt="1766802700107"></p>
+<ul>
+<li><strong>查看conda都有哪些版本的stramlit</strong></li>
+</ul>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">conda search streamlit</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="1766802906544.png" alt="1766802906544"></p>
+<ul>
+<li><strong>此外还需要有Apifox软件，查看API response  等</strong></li>
+</ul>
+<p><img src="1766803159139.png" alt="1766803159139"></p>
+<h4 id="2-下载ollama依赖包和langchain依赖包"><a href="#2-下载ollama依赖包和langchain依赖包" class="headerlink" title="2.下载ollama依赖包和langchain依赖包"></a>2.下载ollama依赖包和langchain依赖包</h4><ul>
+<li><p><strong>同样在conda环境中安装或者pycharm命令窗口安装均可</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ollama -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p><img src="1767234753817.png" alt="1767234753817"></p>
+<ul>
+<li><strong>langchain 需要安装最新版本，否则找不到memory包</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 pip 安装最新版（Conda 仓库可能不是最新版）</span></span><br><span class="line">pip install --upgrade langchain</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完整组件</span></span><br><span class="line">pip install langchain-core langchain-community</span><br></pre></td></tr></table></figure>
+
+<p><img src="1767234828027.png" alt="1767234828027"></p>
+</li>
+<li><p><em><strong>至此环境搭配完成</strong></em></p>
+</li>
+</ul>
+<h3 id="二、编写代码"><a href="#二、编写代码" class="headerlink" title="二、编写代码"></a>二、编写代码</h3><h4 id="1-搭建ollma后端服务器"><a href="#1-搭建ollma后端服务器" class="headerlink" title="1.搭建ollma后端服务器"></a>1.搭建ollma后端服务器</h4><ul>
+<li><p><strong>第一步 创建新项目，保证项目路径为conda环境</strong></p>
+<ul>
+<li><img src="1767235122925.png" alt="1767235122925"></li>
+<li><strong>保证你的环境中有ollama和langchain第三方库即可</strong></li>
+</ul>
+</li>
+<li><p><strong>第二步 创建一个写后端程序的.py文件</strong></p>
+<ul>
+<li><p><strong>文件名任意 推荐 chat_utils.py</strong></p>
+<ul>
+<li><p><strong>源码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">该模块用于充当聊天机器人的后端模块，</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">即:接收前端(Streamlit)传过来的用户的问题,交给大语言模型(Qwen，DeepSeek-r1等)，</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">获取其相应结果，并返回(给前端)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 导包</span></span><br><span class="line"><span class="keyword">import</span> ollama</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 定义函数,给大语言模型发送请求,并获取响应信息</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_response</span>(<span class="params">prompt</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    该函数是实现给大语言模型发送信息来获取响应的一个后端程序</span></span><br><span class="line"><span class="string">    :param prompt:用户的提示词</span></span><br><span class="line"><span class="string">    :return:返回大模型的回答结果</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    response = ollama.chat(model=<span class="string">&#x27;qwen3:4b&#x27;</span>, messages=[&#123;<span class="string">&#x27;role&#x27;</span>: <span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;content&#x27;</span>: prompt&#125;])</span><br><span class="line">    <span class="keyword">return</span> response[<span class="string">&#x27;message&#x27;</span>][<span class="string">&#x27;content&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.测试</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    prompt = <span class="string">&#x27;请为我写一个简单的计算器的python代码&#x27;</span></span><br><span class="line">    response = get_response(prompt)</span><br><span class="line">    <span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>提示：模型可随意切换，使用本地下载好的模型即可</strong></em></p>
+<p><strong>如：cmd中查看  ollama ls查看模型名称</strong></p>
+<p><img src="1767235850570.png" alt="1767235850570"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-搭建前端页面"><a href="#2-搭建前端页面" class="headerlink" title="2.搭建前端页面"></a>2.搭建前端页面</h4><ul>
+<li><p><strong>第一步 创建前端页面.py文件 文件名任意 推荐：chat_main.py</strong></p>
+<ul>
+<li><p><strong>源码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">该模块用于充当聊天机器人的前端模块，</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">即:接收用户录入的问题，调用chat_utils模块的get_response()函数,获取模型处理结果。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">并通过 streamlit在前端页面展示即可.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入时间模块，判断输入框中的内容</span></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">now = datetime.now()</span><br><span class="line"><span class="comment"># 1.导包</span></span><br><span class="line"><span class="comment"># streamlit库:Python代码实现搭建前端页面 并部署</span></span><br><span class="line"><span class="keyword">import</span> streamlit <span class="keyword">as</span> st</span><br><span class="line"><span class="comment"># langchain库:聊天机器人核心模块，ConversationBufferMemory:聊天记录存储器(存储所有聊天信息的)</span></span><br><span class="line"><span class="keyword">from</span> langchain.memory <span class="keyword">import</span> ConversationBufferMemory</span><br><span class="line"><span class="comment"># 自定义模块:封装了模型处理函数，获取模型处理结果</span></span><br><span class="line"><span class="keyword">from</span> chat_utils <span class="keyword">import</span> get_response</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置页面配置</span></span><br><span class="line">st.set_page_config(</span><br><span class="line">    page_title=<span class="string">&quot;小N智聊&quot;</span>,</span><br><span class="line">    page_icon=<span class="string">&quot;./icon/机器人聊天.png&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问候语</span></span><br><span class="line">greeting = <span class="string">&quot;&quot;&quot;你好，我是小N。很高兴为你提供对话支持。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">我能为你：\n\n</span></span><br><span class="line"><span class="string">🔍 解答各领域问题，从日常生活到专业知识\n\n</span></span><br><span class="line"><span class="string">💡 提供实用建议与多角度思考\n\n</span></span><br><span class="line"><span class="string">📝 协助文本创作、分析和总结\n\n</span></span><br><span class="line"><span class="string">🌐 分享科技、人文、艺术等领域的见解\n\n</span></span><br><span class="line"><span class="string">\n\n</span></span><br><span class="line"><span class="string">欢迎向我提出具体问题或探讨想法，\n\n</span></span><br><span class="line"><span class="string">我将以清晰、准确的方式与你交流。\n\n</span></span><br><span class="line"><span class="string">\n\n</span></span><br><span class="line"><span class="string">让我们开始对话吧。&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.标题</span></span><br><span class="line">st.title(<span class="string">&#x27;🌏兆年智能聊天机器人&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.判断是否有 历史消息记录对象，如果没有就创建，并存储所有的消息记录</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;memory&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> st.session_state:</span><br><span class="line">    <span class="comment"># 3.1 创建 ConversationBufferMemory 对象，并存储到session_state中</span></span><br><span class="line">    st.session_state.memory = ConversationBufferMemory()</span><br><span class="line">    <span class="comment"># 3.2 添加 机器人欢迎语</span></span><br><span class="line">    st.session_state.messages = [</span><br><span class="line">        &#123;<span class="string">&#x27;role&#x27;</span>: <span class="string">&#x27;assistant&#x27;</span>, <span class="string">&#x27;content&#x27;</span>: greeting&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.遍历 session_state.messages，显示所有对话</span></span><br><span class="line"><span class="keyword">for</span> message <span class="keyword">in</span> st.session_state.messages:</span><br><span class="line">    <span class="comment"># message的格式是：&#123;&#x27;role&#x27;:&#x27;assistant 或者 user&#x27;,&#x27;content&#x27;:&#x27;内容&#x27;&#125;</span></span><br><span class="line">    <span class="comment"># 4.1 通过 聊天消息容器 用于显示 当前角色的内容</span></span><br><span class="line">    <span class="keyword">with</span> st.chat_message(message[<span class="string">&#x27;role&#x27;</span>]):</span><br><span class="line">        <span class="comment"># 4.2 显示当前角色的内容</span></span><br><span class="line">        st.markdown(message[<span class="string">&#x27;content&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.创建一个聊天窗口，接收用户录入的问题</span></span><br><span class="line"><span class="comment"># 加入时间模块，判断输入框中显示的内容</span></span><br><span class="line"><span class="keyword">if</span> now.hour &gt;= <span class="number">6</span> <span class="keyword">and</span> now.hour &lt;= <span class="number">20</span>:</span><br><span class="line">    box_txt = <span class="string">&#x27;✨今日阳光明媚，今日多云转晴！✨&#x27;</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    box_txt = <span class="string">&#x27;✨今晚月色很美！✨&#x27;</span></span><br><span class="line"><span class="comment"># 创建聊天输入框</span></span><br><span class="line">prompt = st.chat_input(box_txt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.判断用户录入的问题不为空， 我们就继续向下执行</span></span><br><span class="line"><span class="keyword">if</span> prompt:</span><br><span class="line">    <span class="comment"># 7. 把用户的信息添加到 历史消息记录中，并展示到前端界面</span></span><br><span class="line">    st.session_state[<span class="string">&#x27;messages&#x27;</span>].append(&#123;<span class="string">&#x27;role&#x27;</span>: <span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;content&#x27;</span>: prompt&#125;)</span><br><span class="line">    st.chat_message(<span class="string">&#x27;user&#x27;</span>).markdown(<span class="string">f&#x27;用户问：*** <span class="subst">&#123;prompt&#125;</span> *** **好的**😃,**正在解析**用户的问题的🎉,***请稍等~***&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 8. (细节：加入延时等待提示组件)调用自定义的 chat_util模块中的 get_response()函数，获取模型处理的结果</span></span><br><span class="line">    <span class="keyword">with</span> st.spinner(<span class="string">&#x27;正在思考中🏃🏻‍♀️...&#x27;</span>):</span><br><span class="line">        response = get_response(st.session_state.messages)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 9. 把模型处理的结果添加到 历史消息记录中，并展示到前端页面</span></span><br><span class="line">    st.session_state[<span class="string">&#x27;messages&#x27;</span>].append(&#123;<span class="string">&#x27;role&#x27;</span>: <span class="string">&#x27;assistant&#x27;</span>, <span class="string">&#x27;content&#x27;</span>: response&#125;)</span><br><span class="line">    st.chat_message(<span class="string">&#x27;assistant&#x27;</span>).markdown(</span><br><span class="line">        <span class="string">f&#x27;**好的😃，为用户找到了以下内容：**  <span class="subst">&#123;response&#125;</span>  \n\n**以上内容为AI生成，请仔细甄别！**&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="三、启动streamlit服务器"><a href="#三、启动streamlit服务器" class="headerlink" title="三、启动streamlit服务器"></a>三、启动streamlit服务器</h3><h4 id="1-启动服务器"><a href="#1-启动服务器" class="headerlink" title="1.启动服务器"></a>1.启动服务器</h4><ul>
+<li><p><strong>在pycharm的命令窗口输入：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">streamlit run chat_main.py</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：启动时注意是否在项目路径下</strong></p>
+<p><strong>如：</strong></p>
+<p><img src="1767236349532.png" alt="1767236349532"></p>
+</li>
+</ul>
+<h4 id="2-开启聊天"><a href="#2-开启聊天" class="headerlink" title="2.开启聊天"></a>2.开启聊天</h4><p><img src="1767236802486.png" alt="1767236802486"></p>
+<p><img src="1767237138852.png" alt="1767237138852"></p>
+<hr>
+<blockquote>
+<p><em><strong>至此我们的本地聊天机器人搭建完毕</strong></em></p>
+<p><em><strong>如果后续需要全球访问，也可以购买服务器，将streamlit的网络URL上传即可</strong></em></p>
+<p><em><strong>也可以使用服务器将模型搭建在服务器上，这样就可以使用规模更大的模型，方便用户的使用了</strong></em></p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2025/12/26/ollama%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/">https://nianzzzz.github.io/2025/12/26/ollama%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%9F%BA%E4%BA%8Estreamlit%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%92%8Collama%E5%90%8E%E7%AB%AF%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/"># 基于streamlit前端框架和ollama后端搭建一个本地聊天机器人</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/12/26/%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-python%E5%9F%BA%E7%A1%80%E7%89%88/">学生管理系统(python基础版)</a>
+            
+            
+            <a class="next" rel="next" href="/2025/12/22/%E6%A8%A1%E5%9E%8B%E8%A7%A3%E6%9E%90%E5%9B%BE%E7%89%87%E7%9A%84API%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/">模型解析图片的API接口测试</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

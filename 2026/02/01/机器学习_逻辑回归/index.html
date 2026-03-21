@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>逻辑回归 | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">逻辑回归</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 1, 2026&nbsp;&nbsp;11:16:37</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="机器学习–逻辑回归"><a href="#机器学习–逻辑回归" class="headerlink" title="机器学习–逻辑回归"></a>机器学习–逻辑回归</h1><h2 id="一、逻辑回归（Logistic-Regression）算法"><a href="#一、逻辑回归（Logistic-Regression）算法" class="headerlink" title="一、逻辑回归（Logistic Regression）算法"></a>一、逻辑回归（Logistic Regression）算法</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h3><ul>
+<li><p><strong>&#x3D;&#x3D;一种分类模型，将线性回归的输出，作为逻辑回归的输入，输出的值在（0，1）范围内。&#x3D;&#x3D;</strong></p>
+</li>
+<li><p><strong>把线性值转化为0到1的概率，然后设置阈值，实现分类任务</strong></p>
+</li>
+</ul>
+<h3 id="2-核心思想"><a href="#2-核心思想" class="headerlink" title="2. 核心思想"></a>2. 核心思想</h3><ul>
+<li><strong>将线性回归的输出，通过一个”逻辑函数“（sigmoid）映射到（0，1）区间，从而得到概率。</strong></li>
+<li><strong>设置阈值（比如：0.5），输出的概率值如果大于0.5，则将未知样本输出为1类，否则输出为0类。</strong></li>
+</ul>
+<h3 id="3-应用场景"><a href="#3-应用场景" class="headerlink" title="3. 应用场景"></a>3. 应用场景</h3><ul>
+<li><strong>&#x3D;&#x3D;主要是二分类&#x3D;&#x3D;任务（例如：癌症预测，风险评估等）</strong></li>
+</ul>
+<h3 id="4-底层原理"><a href="#4-底层原理" class="headerlink" title="4. 底层原理"></a>4. 底层原理</h3><ul>
+<li>逻辑回归底层<strong>把极大似然函数  取负对数</strong> 得到<strong>交叉熵损失函数</strong> ,然后迭代(梯度下降)寻找最小损失,也就是寻找最优参数</li>
+</ul>
+<h4 id="4-1-逻辑回归原理-–-交叉熵和似然函数的关系"><a href="#4-1-逻辑回归原理-–-交叉熵和似然函数的关系" class="headerlink" title="4.1 逻辑回归原理 – 交叉熵和似然函数的关系"></a>4.1 逻辑回归原理 – 交叉熵和似然函数的关系</h4><ul>
+<li><strong>&#x3D;&#x3D;伯努利分布的似然函数是逻辑回归交叉熵函数的来源，对其取负对数，就直接能得到交叉熵损失。&#x3D;&#x3D;</strong></li>
+</ul>
+<p><img src="1769741783494.png" alt="1769741783494"></p>
+<h3 id="5-常见的损失函数"><a href="#5-常见的损失函数" class="headerlink" title="5. 常见的损失函数"></a>5. 常见的损失函数</h3><ul>
+<li><strong>分类：</strong><ul>
+<li>二分类交叉熵损失</li>
+<li>多分类交叉熵损失</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769756273210.png" alt="1769756273210"></p>
+<ul>
+<li>交叉熵函数的公式：</li>
+</ul>
+<p><img src="1769776446084.png" alt="1769776446084"></p>
+<p><img src="1769742591079.png" alt="1769742591079"></p>
+<h3 id="6-分类模型的评估方法"><a href="#6-分类模型的评估方法" class="headerlink" title="6. 分类模型的评估方法"></a>6. 分类模型的评估方法</h3><ul>
+<li>作用：训练后，评估模型表现的好坏。</li>
+</ul>
+<h4 id="6-1-模型评估指标"><a href="#6-1-模型评估指标" class="headerlink" title="6.1 模型评估指标"></a>6.1 <strong>模型评估指标</strong></h4><ul>
+<li><p>混淆矩阵：所有评估指标的基础，<strong>&#x3D;&#x3D;可视化TP, FP, TN, FN&#x3D;&#x3D;</strong>。</p>
+<ul>
+<li>基础格式：</li>
+</ul>
+<p><img src="1769776767977.png" alt="1769776767977"></p>
+<ul>
+<li>四个指标：<ul>
+<li><strong>TP（True Positive）</strong>：实际为正，预测为正（正确识别）–真正例</li>
+<li><strong>FN（False Negative）</strong>：实际为正，预测为负（漏报）–假&#x2F;伪反例</li>
+<li><strong>FP（False Positive）</strong>：实际为负，预测为正（误报）–假&#x2F;伪正例</li>
+<li><strong>TN（True Negative）</strong>：实际为负，预测为负（正确拒绝）–真反例</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769776820520.png" alt="1769776820520"></p>
+<ul>
+<li><strong>&#x3D;&#x3D;模型预测和实际标签的对比矩阵&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="1769756105688.png" alt="1769756105688"></p>
+<ul>
+<li><p><strong>准确率(Accuracy)</strong>：最直观，但不适用于类别不平衡的数据集。</p>
+</li>
+<li><p><strong>精确率(Precision)</strong>、<strong>召回率(Recall)</strong> 与 <strong>F1-Score</strong>：更全面地衡量模型性能，尤其在正负样本不均衡时。</p>
+</li>
+<li><p><strong>ROC曲线与AUC值</strong>：关注模型在不同阈值下“区分正负样本”的能力。AUC值越接近1，模型性能越好。</p>
+</li>
+</ul>
+<h3 id="1-混淆矩阵（Confusion-Matrix）"><a href="#1-混淆矩阵（Confusion-Matrix）" class="headerlink" title="1. 混淆矩阵（Confusion Matrix）"></a>1. 混淆矩阵（Confusion Matrix）</h3><p>**分类评估的基础，显示模型预测结果与实际结果的交叉情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">**</span><br><span class="line"></span><br><span class="line">​```</span><br><span class="line">          预测</span><br><span class="line">        正例(P)    负例(N)</span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">实际 正例(P)  TP        FN</span><br><span class="line">     负例(N)  FP        TN</span><br></pre></td></tr></table></figure>
+
+<p><strong>四个核心概念：</strong></p>
+<ul>
+<li><strong>TP（True Positive）</strong>：实际为正，预测为正（正确识别）</li>
+<li><strong>FN（False Negative）</strong>：实际为正，预测为负（漏报）</li>
+<li><strong>FP（False Positive）</strong>：实际为负，预测为正（误报）</li>
+<li><strong>TN（True Negative）</strong>：实际为负，预测为负（正确拒绝）</li>
+</ul>
+<h3 id="2-准确率（Accuracy）"><a href="#2-准确率（Accuracy）" class="headerlink" title="2. 准确率（Accuracy）"></a>2. 准确率（Accuracy）</h3><p><strong>定义</strong>：正确预测的比例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accuracy = (TP + TN) / (TP + TN + FP + FN)</span><br></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：</p>
+<ul>
+<li>直观易懂</li>
+<li><strong>问题</strong>：在不平衡数据集中容易误导<ul>
+<li>例：99%负样本，1%正样本</li>
+<li>模型全预测为负，准确率&#x3D;99%，但完全没识别出正样本！</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769776999511.png" alt="1769776999511"></p>
+<h3 id="3-精确率（Precision）和召回率（Recall）"><a href="#3-精确率（Precision）和召回率（Recall）" class="headerlink" title="3. 精确率（Precision）和召回率（Recall）"></a>3. 精确率（Precision）和召回率（Recall）</h3><p><strong>精确率（查准率）</strong>：</p>
+<blockquote>
+<p>预测为正的样本中，实际为正的比例</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Precision = TP / (TP + FP)</span><br></pre></td></tr></table></figure>
+
+<p><strong>关注点</strong>：减少漏报（FN）<br><strong>应用场景</strong>：疾病检测（宁可误诊，也不可漏诊）</p>
+<p><img src="1769756881181.png" alt="1769756881181"></p>
+<p><img src="1769756996685.png" alt="1769756996685"></p>
+<h3 id="4-F1分数（F1-Score）"><a href="#4-F1分数（F1-Score）" class="headerlink" title="4. F1分数（F1-Score）"></a>4. F1分数（F1-Score）</h3><p><strong>定义</strong>：精确率和召回率的调和平均数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F1 = <span class="number">2</span> × (Precision × Recall) / (Precision + Recall)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>调和平均数比算术平均数更惩罚极端值</li>
+<li>适用于需要平衡精确率和召回率的场景</li>
+</ul>
+<p><img src="1769757100506.png" alt="1769757100506"></p>
+<p><img src="1769759704112.png" alt="1769759704112"></p>
+<p><img src="1769760841205.png" alt="1769760841205"></p>
+<p><img src="1769761295643.png" alt="1769761295643"></p>
+<h2 id="二、ROC曲线与AUC"><a href="#二、ROC曲线与AUC" class="headerlink" title="二、ROC曲线与AUC"></a>二、ROC曲线与AUC</h2><h3 id="1-核心概念"><a href="#1-核心概念" class="headerlink" title="1. 核心概念"></a>1. 核心概念</h3><p><strong>ROC曲线</strong>（Receiver Operating Characteristic Curve）：</p>
+<ul>
+<li>横轴：假正率（False Positive Rate, FPR）&#x3D; FP &#x2F; (FP + TN)</li>
+<li>纵轴：真正率（True Positive Rate, TPR）&#x3D; Recall &#x3D; TP &#x2F; (TP + FN)</li>
+</ul>
+<p><strong>绘制方法</strong>：<br>不断调整分类阈值（从1到0），计算每个阈值下的（FPR, TPR）点</p>
+<p><img src="1769760810816.png" alt="1769760810816"></p>
+<h3 id="2-ROC曲线解读"><a href="#2-ROC曲线解读" class="headerlink" title="2. ROC曲线解读"></a>2. ROC曲线解读</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TPR（召回率）</span><br><span class="line">↑</span><br><span class="line">|   理想分类器</span><br><span class="line">|    /</span><br><span class="line">|   /</span><br><span class="line">|  /</span><br><span class="line">| /</span><br><span class="line">|/_________ FPR</span><br><span class="line">0           1</span><br></pre></td></tr></table></figure>
+
+<p><strong>不同曲线含义</strong>：</p>
+<ul>
+<li><strong>对角线（y&#x3D;x）</strong>：随机猜测，AUC&#x3D;0.5</li>
+<li><strong>左上角曲线</strong>：模型性能好，AUC接近1</li>
+<li><strong>右下角曲线</strong>：模型性能差，AUC接近0（可反转预测）</li>
+</ul>
+<p><img src="1769761426125.png" alt="1769761426125"></p>
+<h3 id="3-AUC（Area-Under-Curve）"><a href="#3-AUC（Area-Under-Curve）" class="headerlink" title="3. AUC（Area Under Curve）"></a>3. AUC（Area Under Curve）</h3><ul>
+<li>取值范围：[0, 1]</li>
+<li><strong>物理意义</strong>：随机选取一个正样本和一个负样本，分类器将正样本排序在负样本前面的概率</li>
+<li><strong>解读</strong>：<ul>
+<li>AUC&#x3D;0.5：没有区分能力（随机）</li>
+<li>0.7≤AUC&lt;0.8：有一定区分能力</li>
+<li>0.8≤AUC&lt;0.9：区分能力较好</li>
+<li>AUC≥0.9：区分能力很好</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-ROC-AUC的特点"><a href="#4-ROC-AUC的特点" class="headerlink" title="4. ROC&#x2F;AUC的特点"></a>4. ROC&#x2F;AUC的特点</h3><p><strong>优点</strong>：</p>
+<ul>
+<li>不受类别分布影响（与精确率&#x2F;召回率不同）</li>
+<li>可以比较不同模型的整体性能</li>
+<li>对分类阈值的选择不敏感</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>当类别极度不平衡时，可能过于乐观</li>
+</ul>
+<p><img src="1769766715865.png" alt="1769766715865"></p>
+<h1 id="涉及的数学基础"><a href="#涉及的数学基础" class="headerlink" title="涉及的数学基础"></a>涉及的数学基础</h1><p><img src="1769775199086.png" alt="1769775199086"></p>
+<p><img src="1769775837484.png" alt="1769775837484"></p>
+<p><img src="1769775242345.png" alt="1769775242345"></p>
+<h1 id="面试问题串联："><a href="#面试问题串联：" class="headerlink" title="面试问题串联："></a>面试问题串联：</h1><h2 id="1-简述逻辑回归的原理？"><a href="#1-简述逻辑回归的原理？" class="headerlink" title="1. 简述逻辑回归的原理？"></a>1. 简述逻辑回归的原理？</h2><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>逻辑回归是进行分类任务的经典算法，它的核心思想是 将线性回归的输出 作为逻辑回归的输入，通过sigmoid函数将输出的值映射到（0，1）区间，再设置一个阈值（比如：0.5）如果得出的概率大于0.5，就给他归到1类，否则归为0类；</strong><br><strong>它的一个底层原理是把极大似然函数取负对数 得到交叉熵损失 通过梯度下降得到最小损失，由于交叉熵函数是一个凸函数，所以它一定能找到最优解 ，而MSE损失函数不是凸函数，可能出现局部最优的情况。</strong></p>
+</blockquote>
+<h2 id="2-什么是逻辑回归的损失函数？"><a href="#2-什么是逻辑回归的损失函数？" class="headerlink" title="2. 什么是逻辑回归的损失函数？"></a>2. 什么是逻辑回归的损失函数？</h2><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>逻辑回归的损失函数是对数损失函数（Log Loss），也称为交叉熵损失函数（Cross-Entropy Loss）。</strong></p>
+<p><strong>逻辑回归的损失函数：有二分类交叉熵损失，和多分类交叉熵损失，一般我们执行的都是二分类任务；</strong></p>
+<h2 id="关键特性"><a href="#关键特性" class="headerlink" title="关键特性"></a><strong>关键特性</strong></h2><ol>
+<li><strong>凸函数：这个损失&#x3D;&#x3D;函数是凸的&#x3D;&#x3D;，保证了梯度下降能找到&#x3D;&#x3D;全局最优解&#x3D;&#x3D;</strong></li>
+<li><strong>概率解释：基于最大似然估计推导而来</strong></li>
+<li><strong>分类特性：对错误分类进行”严厉”惩罚（损失趋于无穷大）</strong></li>
+</ol>
+</blockquote>
+<h2 id="3-逻辑回归的评估方法有哪些，都有什么作用？"><a href="#3-逻辑回归的评估方法有哪些，都有什么作用？" class="headerlink" title="3. 逻辑回归的评估方法有哪些，都有什么作用？"></a>3. 逻辑回归的评估方法有哪些，都有什么作用？</h2><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>逻辑回归的评估方法：</strong></p>
+<ol>
+<li><p><strong>混淆矩阵（Confusion Matrix）：直观显示四类预测结果，是计算其他指标的基础</strong></p>
+</li>
+<li><p><strong>准确率（Accuracy）：衡量整体预测正确率</strong>      </p>
+</li>
+<li><p><strong>精确率&#x2F;查准率（Precision）：预测为正的样本中实际为正的比例   公式 ： Precision &#x3D; TP &#x2F; (TP + FP)</strong></p>
+</li>
+<li><p><strong>召回率&#x2F;查全率（Recall）：实际为正的样本中被正确预测的比例     公式：Recall &#x3D; TP &#x2F; (TP + FN)</strong></p>
+</li>
+<li><p><strong>F1分数：平衡精确率和召回率  公式：F1 &#x3D; 2 × (Precision × Recall) &#x2F; (Precision + Recall)</strong></p>
+</li>
+<li><p><strong>ROC曲线和AUC指标：</strong></p>
+<p><strong>ROC曲线：展示分类器在不同阈值下的性能</strong></p>
+<p><strong>AUC指标：ROC曲线下的面积</strong></p>
+</li>
+</ol>
+</blockquote>
+<h2 id="4-什么是ROC曲线和AUC指标？"><a href="#4-什么是ROC曲线和AUC指标？" class="headerlink" title="4. 什么是ROC曲线和AUC指标？"></a>4. 什么是ROC曲线和AUC指标？</h2><blockquote>
+<p><strong>答：</strong></p>
+<h3 id="ROC曲线：展示分类器在不同阈值下的性能"><a href="#ROC曲线：展示分类器在不同阈值下的性能" class="headerlink" title="ROC曲线：展示分类器在不同阈值下的性能"></a><strong>ROC曲线：展示分类器在不同阈值下的性能</strong></h3><ul>
+<li><strong>横轴：假正率（FPR &#x3D; FP&#x2F;(FP+TN)）</strong></li>
+<li><strong>纵轴：真正率（TPR &#x3D; Recall）</strong></li>
+<li><strong>作用：评估模型在不同分类阈值下的表现</strong></li>
+</ul>
+<h3 id="AUC值：ROC曲线下的面积"><a href="#AUC值：ROC曲线下的面积" class="headerlink" title="AUC值：ROC曲线下的面积"></a><strong>AUC值：ROC曲线下的面积</strong></h3><ul>
+<li><strong>取值范围：0.5（随机猜测）到1（完美分类）</strong></li>
+<li><strong>优点：对类别不平衡不敏感，评估模型整体排序能力</strong></li>
+<li><strong>适用场景：二分类模型综合评估</strong></li>
+</ul>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">https://nianzzzz.github.io/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"># 机器学习--分类任务--逻辑回归</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2026/02/01/%E5%86%B3%E7%AD%96%E6%A0%91/">决策树</a>
+            
+            
+            <a class="next" rel="next" href="/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">线性回归</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

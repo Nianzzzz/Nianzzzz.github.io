@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>线性回归 | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">线性回归</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 1, 2026&nbsp;&nbsp;11:15:37</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="机器学习–-线性回归"><a href="#机器学习–-线性回归" class="headerlink" title="机器学习– 线性回归"></a>机器学习– 线性回归</h1><h2 id="一、网格搜索和交叉验证"><a href="#一、网格搜索和交叉验证" class="headerlink" title="一、网格搜索和交叉验证"></a>一、网格搜索和交叉验证</h2><h3 id="1-什么是交叉验证"><a href="#1-什么是交叉验证" class="headerlink" title="1. 什么是交叉验证"></a>1. 什么是交叉验证</h3><ul>
+<li><strong>是一种数据集的分割方法，将训练集分成n份，拿&#x3D;&#x3D;一份做验证集(测试集)&#x3D;&#x3D;，剩下的&#x3D;&#x3D;n-1份做训练集&#x3D;&#x3D;</strong></li>
+<li><strong>KNN中 的&#x3D;&#x3D;K&#x3D;&#x3D;指的就是n_neighbors&#x3D;&#x3D;超参数&#x3D;&#x3D;，一个参数的改动则会影响整个模型的结果，而且影响还比较大</strong></li>
+</ul>
+<h3 id="2-为什么需要网格搜索？"><a href="#2-为什么需要网格搜索？" class="headerlink" title="2. 为什么需要网格搜索？"></a>2. 为什么需要网格搜索？</h3><ul>
+<li>模型有很多的超参数，不同参数其表现能力也不同，<strong>需要手动产出很多的&#x3D;&#x3D;超参数组合&#x3D;&#x3D;</strong>，来训练模型，每组超参数都**&#x3D;&#x3D;采用交叉验证评估&#x3D;&#x3D;<strong>，最后选出</strong>相对最优的参数组合**建立模型</li>
+</ul>
+<h3 id="3-作用："><a href="#3-作用：" class="headerlink" title="3. 作用："></a>3. 作用：</h3><ul>
+<li><strong>找到相对最优的K值&#x2F;超参数</strong></li>
+<li>从而提高模型预测的准确率，使模型效率更高</li>
+<li><strong>&#x3D;&#x3D;交叉验证解决：数据集的划分&#x3D;&#x3D;</strong></li>
+<li><strong>&#x3D;&#x3D;网格搜索解决：超参数的自动组合&#x3D;&#x3D;</strong></li>
+</ul>
+<h3 id="4-API："><a href="#4-API：" class="headerlink" title="4. API："></a>4. API：</h3><ul>
+<li><p><strong>导包：from sklearn.model_selection import &#x3D;&#x3D;GridSearchCV&#x3D;&#x3D;</strong></p>
+</li>
+<li><p><strong>model &#x3D; GridSearchCV()</strong></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3. 准备模型(此处选择KNN的分类模型)</span></span><br><span class="line">knn_model = KNeighborsClassifier()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 准备网格搜索交叉验证模型训练</span></span><br><span class="line"><span class="comment"># 参数解释： </span></span><br><span class="line"><span class="comment"># 参1：estimator模型对象   	参2：param_grid 估计器参数 (dict)		参3：cv 几折交叉验证/次数 </span></span><br><span class="line"><span class="comment"># param_grid 中的参数：n_neighbors 超参数组合  </span></span><br><span class="line">gscv_knn_model = GridSearchCV(estimator=knn_model, param_grid=&#123;<span class="string">&#x27;n_neighbors&#x27;</span>:[i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">12</span>,<span class="number">2</span>)]&#125;,cv=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-步骤："><a href="#3-步骤：" class="headerlink" title="3. 步骤："></a>3. 步骤：</h3><ul>
+<li>将数据集划分为训练集和测试集</li>
+<li>将分好的训练集单独取出来<strong>做网格搜索交叉验证</strong>(分成n份，拿一份做测试集，n-1份做训练集)：<ul>
+<li>首先手动确定超参数组合（ param_grid&#x3D;{‘n_neighbors’:[1,3,5,7,9]}）</li>
+<li>如果是多种超参数会进行**&#x3D;&#x3D;两两匹配(笛卡尔积)&#x3D;&#x3D;<strong>，再指定训练数据</strong>&#x3D;&#x3D;交叉验证的次数(cv)&#x3D;&#x3D;**，每次超参数组合都会有n个分数，我们取出这n个分数的平均值，<strong>最后选择平均值最大的那个作为我们的超参数</strong></li>
+</ul>
+</li>
+<li>创建模型指定相对最优超参数</li>
+<li>拿着所有训练集做训练</li>
+<li>拿着所有测试集做预测&#x2F;评估</li>
+</ul>
+<p><img src="1769565466466.png" alt="1769565466466"></p>
+<h2 id="二、-寻找相对最优的w和b"><a href="#二、-寻找相对最优的w和b" class="headerlink" title="二、 寻找相对最优的w和b"></a>二、 寻找相对最优的w和b</h2><h3 id="1-线性回归API"><a href="#1-线性回归API" class="headerlink" title="1. 线性回归API"></a>1. 线性回归API</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导包</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 准备数据</span></span><br><span class="line">x_train = [[<span class="number">160</span>],[<span class="number">166</span>],[<span class="number">172</span>],[<span class="number">174</span>],[<span class="number">180</span>]]</span><br><span class="line">y_train = [<span class="number">56.3</span>, <span class="number">60.6</span>, <span class="number">65.1</span>, <span class="number">68.5</span>, <span class="number">75</span>]</span><br><span class="line">x_test=[[<span class="number">168</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备模型</span></span><br><span class="line">model = LinearRegression()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 模型训练</span></span><br><span class="line">model.fit(x_train, y_train)</span><br><span class="line"><span class="comment"># 模型训练本质就是在找相对最优的w和b</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;w: <span class="subst">&#123;model.coef_&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;b: <span class="subst">&#123;model.intercept_&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.模型预测/评估</span></span><br><span class="line">y_pred = model.predict(x_test)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;模型预测身高为：<span class="subst">&#123;x_test[<span class="number">0</span>][<span class="number">0</span>]&#125;</span>的体重为：<span class="subst">&#123;y_pred&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-线性回归的两种思路：正规方程、梯度下降（推荐）"><a href="#2-线性回归的两种思路：正规方程、梯度下降（推荐）" class="headerlink" title="2. 线性回归的两种思路：正规方程、梯度下降（推荐）"></a>2. 线性回归的两种思路：正规方程、梯度下降（推荐）</h3><h4 id="2-0-什么是线性回归？"><a href="#2-0-什么是线性回归？" class="headerlink" title="2.0 什么是线性回归？"></a>2.0 什么是线性回归？</h4><ul>
+<li>线性回归有两种：<ul>
+<li>一种是一元线性回归  y &#x3D;  wx + b<ul>
+<li>目标值(因变量)只**&#x3D;&#x3D;与一个特征(自变量)有关系&#x3D;&#x3D;**</li>
+</ul>
+</li>
+<li>另一种是多元线性回归  y &#x3D; w1x1+w2x2+w3x3+…+b<ul>
+<li>目标值(因变量)<strong>&#x3D;&#x3D;与多个特征(自变量)&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-正规方程"><a href="#2-1-正规方程" class="headerlink" title="2.1 正规方程"></a>2.1 正规方程</h4><ul>
+<li><p><strong>特点：一步到位</strong></p>
+</li>
+<li><p><strong>缺点：可能没有解</strong></p>
+<ul>
+<li><strong>&#x3D;&#x3D;原因：由于多元线性回归方程最后的结果可能出现矩阵不可逆（奇异矩阵），而矩阵的逆可能无法正常求出，因为矩阵的逆必须是方阵才有单位阵，才能算出矩阵的逆，从而导致多元线性回归无解，此时使用正规方程求k和b就得不到最优的参数，所以一般我们都使用梯度下降方法求相对最优的k和b的值。&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><p><strong>面试常考角度</strong></p>
+</li>
+</ul>
+<p>  面试中可能会这样问：</p>
+<ol>
+<li><strong>“正规方程和梯度下降各有什么优缺点？”</strong><ul>
+<li>正规方程：一次计算得到精确解，但需要计算逆矩阵，O(n³)复杂度，可能不可逆</li>
+<li>梯度下降：迭代求解，适用于大数据和高维情况，总能找到解</li>
+</ul>
+</li>
+<li><strong>“什么情况下正规方程会失败？如何解决？”</strong><ul>
+<li>回答要点：特征共线性、（特指数）p&gt;（样本数）n、数值不稳定</li>
+<li>解决方案：正则化、伪逆、特征选择、梯度下降</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>底层实现：一元线性回归、多元线性回归</strong></p>
+</li>
+<li><p>一元线性回归：</p>
+<ul>
+<li>使用损失函数求导&#x3D;0求极小值，计算得出k和b的值</li>
+</ul>
+</li>
+<li><p>多元线性回归：</p>
+<ul>
+<li>同样使用损失函数，但是求偏导&#x3D;0求极小值，计算得出k和b的值</li>
+<li>但是计算得出的函数可能出现求矩阵的逆的情况，而矩阵的逆可能无解</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769509175877.png" alt="1769509175877"></p>
+<p><img src="1769509185298.png" alt="1769509185298"></p>
+<h4 id="2-2-梯度下降方法（掌握）"><a href="#2-2-梯度下降方法（掌握）" class="headerlink" title="2.2 梯度下降方法（掌握）"></a>2.2 梯度下降方法（掌握）</h4><ul>
+<li>公式：新参数 &#x3D; 旧参数 -  学习率*梯度（导数&#x2F;偏导数，如(Θ²)&#96;&#x3D;2Θ）</li>
+</ul>
+<p><img src="assets/1769646053933.png" alt="1769646053933"></p>
+<ul>
+<li>大白话解释：盲人杵着拐杖下山</li>
+<li>名词解析<ul>
+<li><strong>&#x3D;&#x3D;学习率(步长)&#x3D;&#x3D;</strong>[相当于拐杖]:</li>
+<li><strong>&#x3D;&#x3D;学习率过大&#x3D;&#x3D;</strong>(拐杖过长):容易越过极值，从而导致**&#x3D;&#x3D;梯度爆炸&#x2F;震荡&#x3D;&#x3D;**</li>
+<li>解决方法：梯度求导</li>
+</ul>
+</li>
+<li>什么是<strong>梯度 gradient  grad</strong>：<ul>
+<li>单变量函数中，梯度就是**&#x3D;&#x3D;某一点切线斜率&#x3D;&#x3D;**（某一点的导数）</li>
+<li>多变量函数中，梯度就是**&#x3D;&#x3D;某一个点的偏导数&#x3D;&#x3D;**</li>
+</ul>
+</li>
+<li><strong>梯度下降的分类：</strong></li>
+</ul>
+<p><img src="assets/1769656143327.png" alt="1769656143327"></p>
+<ul>
+<li><p>流程:</p>
+<ul>
+<li><ol>
+<li>给定初始位置, 步长(学习率)</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>计算该点当前的梯度的负方向.</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>向该负梯度方向移动步长.</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>重复 2 ~ 3步骤, 直至结束.</li>
+</ol>
+<ul>
+<li>两次差距小于指定的阈值</li>
+<li>达到指定的迭代次数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>梯度下降算法核心思想：<ul>
+<li>沿着梯度下降的方向求极小值</li>
+</ul>
+</li>
+<li><strong>梯度下降算法的分类：</strong><ul>
+<li><strong>BGD&#x2F;&#x3D;&#x3D;FGD&#x3D;&#x3D;：批量梯度下降算法&#x2F;&#x3D;&#x3D;全样本梯度&#x3D;&#x3D;下降算法</strong></li>
+<li><strong>SGD：&#x3D;&#x3D;随机一个样本&#x3D;&#x3D;梯度下降算法</strong></li>
+<li><strong>MBGD：&#x3D;&#x3D;小批量随机&#x3D;&#x3D;梯度下降算法</strong></li>
+</ul>
+</li>
+<li>正规线性方程与梯度下降算法特点比较：<ul>
+<li><strong>正规线性方程：</strong><ul>
+<li><strong>优点：&#x3D;&#x3D;一步到位&#x3D;&#x3D;</strong></li>
+<li><strong>缺点：计算量大，方程&#x3D;&#x3D;可能无解&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><strong>梯度下降：</strong><ul>
+<li><strong>优点：&#x3D;&#x3D;迭代求解，一定能找到解&#x3D;&#x3D;，特征数量较大可以使用，适合于嘈杂、&#x3D;&#x3D;大数据&#x3D;&#x3D;应用场景等</strong></li>
+<li><strong>缺点：学习率过大可能出现梯度爆炸&#x2F;震荡</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-损失函数"><a href="#3-损失函数" class="headerlink" title="3. 损失函数"></a>3. 损失函数</h2><ul>
+<li>什么是损失函数？<ul>
+<li>衡量预测值和真实值之间的差异的函数（LS，MSE，MAE）</li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>计算最小损失</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>最小二乘 LS</strong> (Least Squares, LS)<ul>
+<li>所有样本(预测值 - 真实值)的平方和</li>
+</ul>
+</li>
+<li></li>
+<li><strong>均方误差 MSE</strong> (Mean-Square Error, MSE)<ul>
+<li>最小二乘 &#x2F; 样本个数m</li>
+</ul>
+</li>
+<li></li>
+<li><strong>平均绝对误差 MAE</strong> (Mean Absolute Error , MAE)<ul>
+<li>sum|预测值 - 真实值|  &#x2F; 样本个数m</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769498879759.png" alt="1769498879759"></p>
+<p><img src="1769498900003.png" alt="1769498900003"></p>
+<p><img src="1769499638715.png" alt="1769499638715"></p>
+<p><img src="1769499998397.png" alt="1769499998397"></p>
+<h2 id="4-基本数学公式"><a href="#4-基本数学公式" class="headerlink" title="4.基本数学公式"></a>4.基本数学公式</h2><p><img src="1769517688362.png" alt="1769517688362"></p>
+<p><img src="1769517777974.png" alt="1769517777974"></p>
+<h3 id="4-1-导数"><a href="#4-1-导数" class="headerlink" title="4.1 导数"></a>4.1 导数</h3><ul>
+<li><strong>&#x3D;&#x3D;求导公式&#x3D;&#x3D;</strong></li>
+</ul>
+<p><img src="1769502436463.png" alt="1769502436463"></p>
+<ul>
+<li>推导导数的案例</li>
+</ul>
+<p><img src="1769516316683.png" alt="1769516316683"></p>
+<ul>
+<li><strong>&#x3D;&#x3D;导数的运算&#x3D;&#x3D;</strong></li>
+</ul>
+<p><img src="1769516416455.png" alt="1769516416455"></p>
+<ul>
+<li><strong>&#x3D;&#x3D;求偏导&#x3D;&#x3D;</strong></li>
+</ul>
+<p><img src="1769517517740.png" alt="1769517517740"></p>
+<h3 id="4-2-矩阵"><a href="#4-2-矩阵" class="headerlink" title="4.2 矩阵"></a>4.2 矩阵</h3><ul>
+<li><p>不同型的矩阵相乘：</p>
+<ul>
+<li>A与B相乘，<strong>&#x3D;&#x3D;必须满足A的列&#x3D;B的行&#x3D;&#x3D;</strong>，才能相乘</li>
+</ul>
+</li>
+<li><p><strong>矩阵乘法的性质：</strong></p>
+<ul>
+<li>矩阵的乘法**&#x3D;&#x3D;不满足交换律&#x3D;&#x3D;**：A×B≠B×A</li>
+<li>矩阵的乘法满足结合律。即：A×（B×C）&#x3D;（A×B）×C</li>
+<li><strong>&#x3D;&#x3D;矩阵与单位矩阵相乘等于矩阵本身&#x3D;&#x3D;</strong></li>
+<li><strong>矩阵转置： (A+B)^T &#x3D; A^T + B^T ，&#x3D;&#x3D;(AB)^T &#x3D; B^TA^T&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><p><strong>单位阵：</strong></p>
+<ul>
+<li><strong>&#x3D;&#x3D;主对角线上全是1，其余部分为0，且必须是方阵&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><p>矩阵的逆：</p>
+<ul>
+<li><p>A@B &#x3D; I单位矩阵 则B为A的逆矩阵，记为：<strong>&#x3D;&#x3D;A^−1[A的逆]&#x3D;&#x3D;</strong></p>
+</li>
+<li><p><strong>&#x3D;&#x3D;A@A^T  是方阵&#x3D;&#x3D;</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="1769518537741.png" alt="1769518537741"></p>
+<p><img src="1769517380668.png" alt="1769517380668"></p>
+<p><img src="assets/1769648580035.png" alt="1769648580035"></p>
+<h2 id="三、回归模型评估"><a href="#三、回归模型评估" class="headerlink" title="三、回归模型评估"></a>三、回归模型评估</h2><h3 id="1-回归模型评估与损失函数对比"><a href="#1-回归模型评估与损失函数对比" class="headerlink" title="1. 回归模型评估与损失函数对比"></a>1. 回归模型评估与损失函数对比</h3><h4 id="1-1-回归模型–损失函数-掌握"><a href="#1-1-回归模型–损失函数-掌握" class="headerlink" title="1.1 回归模型–损失函数(掌握)"></a>1.1 回归模型–损失函数(掌握)</h4><ul>
+<li>作用：<ul>
+<li><strong>&#x3D;&#x3D;训练中，帮助模型找最优解&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li>常用方法：<ul>
+<li><strong>最小二乘法 LS</strong></li>
+<li><strong>均方误差 MSE</strong></li>
+<li><strong>平均绝对误差 MAE</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-回归模型–评估方法（掌握）"><a href="#1-2-回归模型–评估方法（掌握）" class="headerlink" title="1.2 回归模型–评估方法（掌握）"></a>1.2 回归模型–评估方法（掌握）</h4><ul>
+<li><p>作用: </p>
+<ul>
+<li><strong>&#x3D;&#x3D;训练后,评估模型表现的好坏&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li><p>常用评估方法：</p>
+<ul>
+<li><strong>均方误差MSE</strong>：放大误差，对异常数据异常敏感</li>
+<li><strong>根平均误差RMSE</strong>：放大误差，对异常数据相对敏感</li>
+<li><strong>平方绝对误差MAE</strong>：真实平均误差，对异常数据不敏感</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-分类模型评估与损失函数对比"><a href="#2-分类模型评估与损失函数对比" class="headerlink" title="2.分类模型评估与损失函数对比"></a>2.分类模型评估与损失函数对比</h3><h4 id="1-1-回归模型–损失函数-掌握-1"><a href="#1-1-回归模型–损失函数-掌握-1" class="headerlink" title="1.1 回归模型–损失函数(掌握)"></a>1.1 回归模型–损失函数(掌握)</h4><ul>
+<li>作用：<ul>
+<li><strong>&#x3D;&#x3D;训练中，帮助模型找最优解&#x3D;&#x3D;</strong></li>
+</ul>
+</li>
+<li>常用方法：<ul>
+<li><strong>最小二乘法 LS</strong></li>
+<li><strong>均方误差 MSE</strong></li>
+<li><strong>平均绝对误差 MAE</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-分类模型–评估方法"><a href="#1-2-分类模型–评估方法" class="headerlink" title="1.2 分类模型–评估方法"></a>1.2 分类模型–评估方法</h4><ul>
+<li><p>作用：</p>
+<ul>
+<li><strong>训练后,评估模型表现的好坏</strong></li>
+</ul>
+</li>
+<li><p>常用评估方法：</p>
+<ul>
+<li>准确率</li>
+<li>精确率</li>
+<li>召回率</li>
+<li>F1分数</li>
+</ul>
+</li>
+</ul>
+<h1 id="面试问答知识点串联："><a href="#面试问答知识点串联：" class="headerlink" title="面试问答知识点串联："></a>面试问答知识点串联：</h1><h3 id="1-讲一下网格搜索和交叉验证的底层原理？"><a href="#1-讲一下网格搜索和交叉验证的底层原理？" class="headerlink" title="1. 讲一下网格搜索和交叉验证的底层原理？"></a>1. 讲一下网格搜索和交叉验证的底层原理？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>首先我们在使用交叉验证之前要先将数据集切割成训练集和测试集，然后手动设置超参数组合以及交叉验证的数量，如：cv&#x3D;5，称为5折交叉验证；</strong></p>
+<p><strong>然后通过网格搜索和交叉验证，将训练集单独取出划分成n份，拿一份做测试集(验证集)，其余n-1份做训练集，通过网格搜索，进行两两匹配(笛卡尔积)，再通过交叉验证组合得出每次超参组合的分数，求出每一组的平均分数，再通过比较，选择平均分最高的那一次组合作为我们的相对最优超参，也就找到了相对最优k值。</strong></p>
+</blockquote>
+<h3 id="2-什么是线性回归，以及描述一下它的应用场景？"><a href="#2-什么是线性回归，以及描述一下它的应用场景？" class="headerlink" title="2.什么是线性回归，以及描述一下它的应用场景？"></a>2.什么是线性回归，以及描述一下它的应用场景？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>即特征和标签之间的线性关系；分为一元线性回归和多元线性回归，一元即标签与一个特征之间的线性关系(y &#x3D; wx + b)，多元即标签与多个特征之间的关系(y &#x3D; w1x1+w2x2+…+b)；应用场景：与线性相关的场景，例如房价预测，根据身高预测体重等等。</strong></p>
+</blockquote>
+<h3 id="3-机器学习中的线性回归算法如何找到最优的w-权重-和b-截距-？"><a href="#3-机器学习中的线性回归算法如何找到最优的w-权重-和b-截距-？" class="headerlink" title="3. 机器学习中的线性回归算法如何找到最优的w(权重)和b(截距)？"></a>3. 机器学习中的线性回归算法如何找到最优的w(权重)和b(截距)？</h3><blockquote>
+<p><strong>答：</strong><br><strong>调用API：</strong></p>
+<p>​	<strong>sklearn.model_selection.LinearRegression();</strong><br><strong>底层实现：</strong></p>
+<p>​	<strong>有两种方法可以实现，一种是求正规线性方程，另一种是梯度下降方法</strong></p>
+<p><strong>正规线性方程：通过求损失函数的最小值，如果是一元线性回归方程，通过求损失函数（最小二乘）的偏导数&#x3D;0，求取k和b的值；如果是多元线性回归方程，也是通过求损失函数（均方误差）的偏导数&#x3D;0，获取w(权重)和b(截距)的值。</strong></p>
+<p><strong>梯度下降：通过迭代求解的方式，朝着梯度下降的方向求导，直至找到极值点，来获取w和b的值。</strong>	</p>
+</blockquote>
+<h3 id="4-什么是损失函数，损失函数的分类？"><a href="#4-什么是损失函数，损失函数的分类？" class="headerlink" title="4. 什么是损失函数，损失函数的分类？"></a>4. 什么是损失函数，损失函数的分类？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>衡量预测值与真实值之间的差异的函数。</strong></p>
+<p><strong>损失函数的分类：</strong></p>
+<p>​	<strong>最小二乘法 LS，</strong></p>
+<p>​	<strong>均方误差 MSE，</strong></p>
+<p>​	<strong>平均绝对值误差MAE。</strong>	</p>
+</blockquote>
+<h3 id="5-请简述线性回归算法的两种思路？"><a href="#5-请简述线性回归算法的两种思路？" class="headerlink" title="5. 请简述线性回归算法的两种思路？"></a>5. 请简述线性回归算法的两种思路？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>底层实现：</strong></p>
+<p>​	<strong>有两种方法可以实现，一种是求正规线性方程，另一种是梯度下降方法</strong></p>
+<p><strong>正规线性方程：通过求损失函数的最小值，如果是一元线性回归方程，通过求损失函数（最小二乘）的偏导数&#x3D;0，求取k和b的值；如果是多元线性回归方程，也是通过求损失函数（均方误差）的偏导数&#x3D;0，获取w(权重)和b(截距)的值。</strong></p>
+<p><strong>梯度下降：通过迭代求解的方式，朝着梯度下降的方向求导，直至找到极值点，来获取w和b的值。</strong></p>
+</blockquote>
+<h3 id="6-什么是梯度下降，梯度下降的核心思想是什么，以及它的分类？"><a href="#6-什么是梯度下降，梯度下降的核心思想是什么，以及它的分类？" class="headerlink" title="6. 什么是梯度下降，梯度下降的核心思想是什么，以及它的分类？"></a>6. 什么是梯度下降，梯度下降的核心思想是什么，以及它的分类？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>什么是梯度下降：</strong></p>
+<p><strong>梯度grad,如果是单变量函数，梯度就是某一点的切线的斜率，如果是多变量函数，梯度就是某一点切线的偏导数</strong></p>
+<p><strong>梯度下降的核心思想：</strong></p>
+<p><strong>沿着梯度下降的方向求导</strong></p>
+<p><strong>分类：</strong></p>
+<p>​	<strong>BGD&#x2F;FGD：批量梯度下降&#x2F;全样本梯度下降算法，SGD：随机一个样本梯度下降算法，MBGD：小批量随机梯度下降算法</strong></p>
+</blockquote>
+<h3 id="7-正规方程和梯度下降的的区别是什么？"><a href="#7-正规方程和梯度下降的的区别是什么？" class="headerlink" title="7. 正规方程和梯度下降的的区别是什么？"></a>7. 正规方程和梯度下降的的区别是什么？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>正规方程：</strong></p>
+<p>​	<strong>优点：一步到位</strong></p>
+<p>​	<strong>缺点：计算量大，可能无解</strong></p>
+<p><strong>梯度下降：</strong></p>
+<p>​	<strong>优点：迭代求解，一定能找到解，特征数量较大可以使用，适合大数据场景等等</strong></p>
+<p>​	<strong>缺点：可能出现局部最优的解，学习率过大，可能会导致梯度爆炸&#x2F;震荡</strong></p>
+</blockquote>
+<h3 id="8-回归模型的损失函数和回归模型的评估方法的核心区别？"><a href="#8-回归模型的损失函数和回归模型的评估方法的核心区别？" class="headerlink" title="8.回归模型的损失函数和回归模型的评估方法的核心区别？"></a>8.回归模型的损失函数和回归模型的评估方法的核心区别？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>回归模型–损失函数：</strong></p>
+<p>​	<strong>作用：训练中，帮助模型找最优解</strong></p>
+<p>​	<strong>损失函数的分类：</strong></p>
+<p>​		<strong>最小二乘 LS：求1~n个样本 预测值与真实值 差值的平方和</strong></p>
+<p>​		<strong>均方误差 MSE：求1~n个样本 预测值-真实值 的平方和的平均</strong></p>
+<p>​		<strong>平均绝对值误差 MAE：求求1~n个样本 预测值-真实值的绝对值的 和平均</strong></p>
+<p><strong>回归模型–评估方法：</strong></p>
+<p>​	<strong>作用：训练后，评估模型的好坏</strong></p>
+<p>​	<strong>评估方法分类：</strong></p>
+<p>​		<strong>均方误差 MSE：放大误差，对异常数据极其敏感</strong></p>
+<p>​		<strong>根平均误差 RMSE：放大误差，对异常数据相对敏感</strong></p>
+<p>​		<strong>平均绝对值误差 MAE：真实误差，对异常数据不敏感</strong></p>
+</blockquote>
+<h3 id="9-为什么回归没有准确率这样的说法？"><a href="#9-为什么回归没有准确率这样的说法？" class="headerlink" title="9.为什么回归没有准确率这样的说法？"></a>9.为什么回归没有准确率这样的说法？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>核心原因：回归和分类的本质区别</strong></p>
+<ol>
+<li><strong>任务类型不同</strong></li>
+</ol>
+<ul>
+<li><strong>分类任务：预测离散的类别标签</strong><ul>
+<li><strong>例如：预测照片是猫还是狗（二分类）</strong></li>
+<li><strong>例如：预测鸢尾花的品种（多分类）</strong></li>
+<li><strong>结果可比较：预测结果要么对，要么错</strong></li>
+</ul>
+</li>
+<li><strong>回归任务：预测连续的数值</strong><ul>
+<li><strong>例如：预测房价、体重、温度</strong></li>
+<li><strong>例如：预测股票价格</strong></li>
+<li><strong>结果不可简单判断对错：预测值几乎不可能与真实值完全相同</strong></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="10-线性回归的API，梯度下降API？"><a href="#10-线性回归的API，梯度下降API？" class="headerlink" title="10 . 线性回归的API，梯度下降API？"></a>10 . 线性回归的API，梯度下降API？</h3><blockquote>
+<p><strong>答:</strong></p>
+<p><strong>sklearn.model_selection.LinearRegression()</strong></p>
+<p><strong>sklearn.model_selection.SGDRegressor()</strong></p>
+</blockquote>
+<h3 id="11-出现欠拟合和过拟合的原因，如何解决？"><a href="#11-出现欠拟合和过拟合的原因，如何解决？" class="headerlink" title="11. 出现欠拟合和过拟合的原因，如何解决？"></a>11. 出现欠拟合和过拟合的原因，如何解决？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>什么是欠拟合：</strong></p>
+<p>​	<strong>训练集上表现差，测试集上表现也差，模型过于简单；</strong></p>
+<p><strong>什么是过拟合：</strong></p>
+<p>​	<strong>训练集上表现好，测试集上表现差，模型过于复杂；</strong></p>
+<p><strong>原因：</strong></p>
+<p>​	<strong>欠拟合：</strong></p>
+<p>​			<strong>由于特征数据较少，模型过于简单，导致的欠拟合</strong></p>
+<p>​	<strong>过拟合：</strong></p>
+<p>​			<strong>由于特征数据过多，出现了异常值，模型过于复杂，导致了过拟合</strong></p>
+<p><strong>解决方法：</strong></p>
+<p>​	<strong>欠拟合：</strong></p>
+<p>​		<strong>增加特征；</strong></p>
+<p>​	<strong>过拟合：</strong></p>
+<p>​		<strong>减少特征，消除异常值，正则化；</strong></p>
+</blockquote>
+<h3 id="12-正则化解决过拟合问题中，L1和L2的作用？"><a href="#12-正则化解决过拟合问题中，L1和L2的作用？" class="headerlink" title="12.正则化解决过拟合问题中，L1和L2的作用？"></a>12.正则化解决过拟合问题中，L1和L2的作用？</h3><blockquote>
+<p><strong>答：</strong></p>
+<p><strong>正则化：通过在损失函数中添加惩罚项，约束模型参数，防止过拟合。</strong></p>
+<p><strong>L1(Lasso回归)：无限趋近于0，可以直接等于0；</strong></p>
+<p><strong>L2(Ridge回归)：无限趋近于0，但不会等于0。</strong></p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">https://nianzzzz.github.io/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%9B%9E%E5%BD%92%E4%BB%BB%E5%8A%A1-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"># 机器学习--回归任务--线性回归</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">逻辑回归</a>
+            
+            
+            <a class="next" rel="next" href="/2026/02/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/">K近邻算法</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
