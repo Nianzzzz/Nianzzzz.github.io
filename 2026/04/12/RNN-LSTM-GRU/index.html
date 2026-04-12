@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Z n">
+
+
+
+
+
+<title>👉 RNN、LSTM、GRU 全面解析：原理 + 公式 + PyTorch 实战（面试必备） | Zhaonian&#39;s Hexo Blog</title>
+
+
+
+    <link rel="icon" href="/%E5%8D%9A%E5%AE%A2%E6%99%BA%E5%BA%93.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhaonian&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhaonian&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">👉 RNN、LSTM、GRU 全面解析：原理 + 公式 + PyTorch 实战（面试必备）</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Z n</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 12, 2026&nbsp;&nbsp;15:45:01</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <ul>
+<li>深度学习</li>
+<li>NLP</li>
+<li>RNN</li>
+<li>LSTM</li>
+<li>GRU<br>categories:</li>
+<li>AI学习笔记</li>
+</ul>
+<hr>
+<h1 id="一、RNN（循环神经网络）"><a href="#一、RNN（循环神经网络）" class="headerlink" title="一、RNN（循环神经网络）"></a>一、RNN（循环神经网络）</h1><h2 id="1-基本定义"><a href="#1-基本定义" class="headerlink" title="1. 基本定义"></a>1. 基本定义</h2><p>RNN（Recurrent Neural Network）是一类用于处理<strong>序列数据</strong>的神经网络，其核心特点是：</p>
+<blockquote>
+<p>当前时刻的输出不仅依赖输入，还依赖于前一时刻的隐藏状态。</p>
+</blockquote>
+<p>在 PyTorch 中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nn.RNN(input_size, hidden_size, num_layers)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>input_size</code>：输入特征维度</li>
+<li><code>hidden_size</code>：隐藏层维度</li>
+<li><code>num_layers</code>：RNN层数</li>
+</ul>
+<hr>
+<h2 id="2-RNN-存在的问题"><a href="#2-RNN-存在的问题" class="headerlink" title="2. RNN 存在的问题"></a>2. RNN 存在的问题</h2><h3 id="❗-长依赖问题（Long-Term-Dependency）"><a href="#❗-长依赖问题（Long-Term-Dependency）" class="headerlink" title="❗ 长依赖问题（Long-Term Dependency）"></a>❗ 长依赖问题（Long-Term Dependency）</h3><ul>
+<li>随着序列变长，前面的信息会逐渐被“遗忘”</li>
+<li>本质原因：<strong>梯度消失 &#x2F; 梯度爆炸</strong></li>
+</ul>
+<p>👉 表现：</p>
+<ul>
+<li>模型难以捕捉长距离依赖关系</li>
+<li>例如：句子开头的信息对结尾影响很弱</li>
+</ul>
+<hr>
+<h2 id="3-RNN-的改进方向"><a href="#3-RNN-的改进方向" class="headerlink" title="3. RNN 的改进方向"></a>3. RNN 的改进方向</h2><p>为了解决上述问题，提出了两种经典变体：</p>
+<ul>
+<li>LSTM（Long Short-Term Memory）</li>
+<li>GRU（Gated Recurrent Unit）</li>
+</ul>
+<hr>
+<h1 id="二、LSTM（长短期记忆网络）"><a href="#二、LSTM（长短期记忆网络）" class="headerlink" title="二、LSTM（长短期记忆网络）"></a>二、LSTM（长短期记忆网络）</h1><h2 id="1-核心结构：三门一状态"><a href="#1-核心结构：三门一状态" class="headerlink" title="1. 核心结构：三门一状态"></a>1. 核心结构：三门一状态</h2><p>LSTM 通过“门控机制”控制信息流：</p>
+<h3 id="（1）遗忘门-F-t"><a href="#（1）遗忘门-F-t" class="headerlink" title="（1）遗忘门 $F_t$"></a>（1）遗忘门 $F_t$</h3><ul>
+<li>决定丢弃哪些旧信息</li>
+<li>保留重要信息</li>
+</ul>
+<h3 id="（2）输入门-I-t"><a href="#（2）输入门-I-t" class="headerlink" title="（2）输入门 $I_t$"></a>（2）输入门 $I_t$</h3><ul>
+<li>控制新信息写入多少</li>
+</ul>
+<h3 id="（3）输出门-O-t"><a href="#（3）输出门-O-t" class="headerlink" title="（3）输出门 $O_t$"></a>（3）输出门 $O_t$</h3><ul>
+<li>决定当前时刻输出哪些信息</li>
+</ul>
+<h3 id="（4）细胞状态-C-t"><a href="#（4）细胞状态-C-t" class="headerlink" title="（4）细胞状态 $C_t$"></a>（4）细胞状态 $C_t$</h3><ul>
+<li>LSTM 的核心</li>
+<li>用于保存<strong>长期记忆</strong></li>
+</ul>
+<hr>
+<h2 id="2-核心公式"><a href="#2-核心公式" class="headerlink" title="2. 核心公式"></a>2. 核心公式</h2><p>$$<br>o_t &#x3D; \sigma(W \cdot [h_{t-1}, x_t] + b)<br>$$</p>
+<p>$$<br>h_t &#x3D; o_t \cdot \tanh(C_t)<br>$$</p>
+<h3 id="含义说明："><a href="#含义说明：" class="headerlink" title="含义说明："></a>含义说明：</h3><ul>
+<li>$O_t$：输出门的激活值（0~1）</li>
+<li>$C_t​$：细胞状态（长期记忆）</li>
+<li>$h_t$：当前隐藏状态（短期输出）</li>
+</ul>
+<hr>
+<h2 id="3-优缺点"><a href="#3-优缺点" class="headerlink" title="3. 优缺点"></a>3. 优缺点</h2><h3 id="✅-优点"><a href="#✅-优点" class="headerlink" title="✅ 优点"></a>✅ 优点</h3><ul>
+<li>有效缓解长依赖问题</li>
+<li>引入记忆机制</li>
+</ul>
+<h3 id="❗-缺点"><a href="#❗-缺点" class="headerlink" title="❗ 缺点"></a>❗ 缺点</h3><ul>
+<li>梯度消失问题<strong>仍未完全解决</strong></li>
+<li>计算复杂（参数多）</li>
+</ul>
+<hr>
+<h1 id="三、GRU（门控循环单元）"><a href="#三、GRU（门控循环单元）" class="headerlink" title="三、GRU（门控循环单元）"></a>三、GRU（门控循环单元）</h1><h2 id="1-核心结构：两门一状态"><a href="#1-核心结构：两门一状态" class="headerlink" title="1. 核心结构：两门一状态"></a>1. 核心结构：两门一状态</h2><p>相比 LSTM，GRU 更简化：</p>
+<h3 id="（1）重置门-r-t"><a href="#（1）重置门-r-t" class="headerlink" title="（1）重置门 $r_t$"></a>（1）重置门 $r_t$</h3><ul>
+<li>控制如何利用过去信息</li>
+</ul>
+<h3 id="（2）更新门-z-t"><a href="#（2）更新门-z-t" class="headerlink" title="（2）更新门 $z_t$"></a>（2）更新门 $z_t$</h3><ul>
+<li>控制旧信息与新信息的融合程度</li>
+</ul>
+<h3 id="（3）隐藏状态-h-t"><a href="#（3）隐藏状态-h-t" class="headerlink" title="（3）隐藏状态 $h_t$"></a>（3）隐藏状态 $h_t$</h3><ul>
+<li>同时承担短期和长期记忆</li>
+</ul>
+<hr>
+<h2 id="2-核心公式-1"><a href="#2-核心公式-1" class="headerlink" title="2. 核心公式"></a>2. 核心公式</h2><p>$$<br>r_t &#x3D; \sigma(W_r \cdot [h_{t-1}, x_t])<br>$$</p>
+<p>$$<br>z_t &#x3D; \sigma(W_z \cdot [h_{t-1}, x_t])<br>$$</p>
+<p>$$<br>\tilde{h}<em>t &#x3D; \tanh(W \cdot [r_t \cdot h</em>{t-1}, x_t])<br>$$</p>
+<p>$$<br>h_t &#x3D; (1 - z_t) \cdot h_{t-1} + z_t \cdot \tilde{h}_t<br>$$</p>
+<hr>
+<h2 id="3-特点总结"><a href="#3-特点总结" class="headerlink" title="3. 特点总结"></a>3. 特点总结</h2><h3 id="✅-优点-1"><a href="#✅-优点-1" class="headerlink" title="✅ 优点"></a>✅ 优点</h3><ul>
+<li>结构更简单（比 LSTM 少一个门）</li>
+<li>训练更快</li>
+<li>效果接近甚至有时优于 LSTM</li>
+</ul>
+<hr>
+<h1 id="四、PyTorch-实现思路"><a href="#四、PyTorch-实现思路" class="headerlink" title="四、PyTorch 实现思路"></a>四、PyTorch 实现思路</h1><h2 id="1-RNN"><a href="#1-RNN" class="headerlink" title="1. RNN"></a>1. RNN</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="comment"># 导包</span></span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义参数的值</span></span><br><span class="line">input_size = <span class="number">5</span></span><br><span class="line">hidden_size = <span class="number">6</span></span><br><span class="line">num_layers = <span class="number">1</span></span><br><span class="line">sequence_len = <span class="number">4</span></span><br><span class="line">batch_size = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dm01_rnn_base</span>():</span><br><span class="line">    <span class="comment"># 1. 实例化模型</span></span><br><span class="line">    <span class="comment"># RNN的参数说明</span></span><br><span class="line">    <span class="comment"># 第一个参数 input_size: 输入的词嵌入维度</span></span><br><span class="line">    <span class="comment"># 第二个参数 hidden_size: RNN单元输出的隐藏层张量的维度</span></span><br><span class="line">    <span class="comment"># 第三个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    input_size = <span class="number">5</span></span><br><span class="line">    hidden_size = <span class="number">6</span></span><br><span class="line">    num_layers = <span class="number">1</span></span><br><span class="line">    model = nn.RNN(input_size, hidden_size, num_layers)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 获取x0输入</span></span><br><span class="line">    <span class="comment"># x0的参数说明: 当前时间步的输入</span></span><br><span class="line">    <span class="comment"># 第一个参数 sequence_len : 每个样本的长度(词的数量),(因为RNN模型的batch_first默认为False,seq_len放在了最前面)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size : 一个批次送入几个样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 input_size : 输入的词嵌入层维度</span></span><br><span class="line">    sequence_len = <span class="number">4</span></span><br><span class="line">    batch_size = <span class="number">3</span></span><br><span class="line">    x0 = torch.randn(sequence_len, batch_size, input_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 获取h0的输入</span></span><br><span class="line">    <span class="comment"># h0的参数说明: 上一时间步隐藏层的输出</span></span><br><span class="line">    <span class="comment"># 第一个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size: 一个批次有多少样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 hidden_size: RNN单元隐藏层的输出维度</span></span><br><span class="line">    h0 = torch.randn(num_layers, batch_size, hidden_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 将输入送给RNN模型得到下一时间步的输出结果</span></span><br><span class="line">    <span class="comment"># output: 所有时间步的输出结果</span></span><br><span class="line">    <span class="comment"># hn: 当前时间步的输出结果,即最后一个时间步(最后一个单词)隐藏层的输出结果</span></span><br><span class="line">    output, hn = model(x0, h0)</span><br><span class="line">    <span class="keyword">return</span> output, hn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dm02_rnn_len</span>():</span><br><span class="line">    <span class="comment"># 更改 seq_len 的长度大小/词的数量为 : 4 -&gt; 一组数据代表一个词(batch_first=False)</span></span><br><span class="line">    <span class="comment"># 1. 实例化模型</span></span><br><span class="line">    <span class="comment"># RNN的参数说明</span></span><br><span class="line">    <span class="comment"># 第一个参数 input_size: 输入的词嵌入维度</span></span><br><span class="line">    <span class="comment"># 第二个参数 hidden_size: RNN单元输出的隐藏层张量的维度</span></span><br><span class="line">    <span class="comment"># 第三个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    input_size = <span class="number">5</span></span><br><span class="line">    hidden_size = <span class="number">6</span></span><br><span class="line">    num_layers = <span class="number">1</span></span><br><span class="line">    model = nn.RNN(input_size, hidden_size, num_layers)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 获取x0输入</span></span><br><span class="line">    <span class="comment"># x0的参数说明: 当前时间步的输入</span></span><br><span class="line">    <span class="comment"># 第一个参数 sequence_len : 每个样本的长度(词的数量),(因为RNN模型的batch_first默认为False,seq_len放在了最前面)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size : 一个批次送入几个样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 input_size : 输入的词嵌入层维度</span></span><br><span class="line">    sequence_len = <span class="number">4</span></span><br><span class="line">    batch_size = <span class="number">3</span></span><br><span class="line">    x0 = torch.randn(sequence_len,batch_size,input_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 获取h0的输入</span></span><br><span class="line">    <span class="comment"># h0的参数说明: 上一时间步隐藏层的输出</span></span><br><span class="line">    <span class="comment"># 第一个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size: 一个批次有多少样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 hidden_size: RNN单元隐藏层的输出维度</span></span><br><span class="line">    h0 = torch.randn(num_layers,batch_size,hidden_size) <span class="comment"># -&gt; output.shape=(4,1,6)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 将输入送给RNN模型得到下一时间步的输出结果</span></span><br><span class="line">    <span class="comment"># output: 所有时间步的输出结果</span></span><br><span class="line">    <span class="comment"># hn: 当前时间步的输出结果,即最后一个时间步(最后一个单词)隐藏层的输出结果</span></span><br><span class="line">    output, hn = model(x0, h0)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;一次性送入模型:&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;output -&gt; \n<span class="subst">&#123;output&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;hn -&gt; \n<span class="subst">&#123;hn&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;&amp;&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 5. 把 token 一个一个的 往RNN模型里送</span></span><br><span class="line">    <span class="comment">#  x0.size(0) = 4代表sequence_len=4,第一维度的长度为4</span></span><br><span class="line">    <span class="comment">#  x0--&gt;[4, 1, 5]</span></span><br><span class="line">    <span class="comment">#  print(f&#x27;x0--&gt;&#123;x0&#125;&#x27;)</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;一个token一个token往RNN模型里面去送:&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(x0.size(<span class="number">0</span>)):</span><br><span class="line">        <span class="comment"># print(f&#x27;x0[idx=&#123;idx&#125;] -&gt; &#123;x0[idx]&#125;&#x27;)  # 结果为2维,无法与RNN模型的输出结果的形状匹配,所以要升维</span></span><br><span class="line">        <span class="comment"># print(f&#x27;x0[idx].shape = &#123;x0[idx].shape&#125;&#x27;)   # (1, 5)</span></span><br><span class="line">        temp = x0[idx].unsqueeze(dim=<span class="number">0</span>)             <span class="comment">#  升一维 -&gt; (1,1,5)</span></span><br><span class="line">        output,h0 = model(temp,h0)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;output -&gt; \n<span class="subst">&#123;output&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;hn -&gt; \n<span class="subst">&#123;hn&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dm03_rnn_batch</span>():</span><br><span class="line">    <span class="comment"># 设置 batch_size=True,即betch_size放到第一位,每一组数据代表一个样本</span></span><br><span class="line">    <span class="comment"># 1. 实例化模型</span></span><br><span class="line">    <span class="comment"># RNN的参数说明</span></span><br><span class="line">    <span class="comment"># 第一个参数 input_size: 输入的词嵌入维度</span></span><br><span class="line">    <span class="comment"># 第二个参数 hidden_size: RNN单元输出的隐藏层张量的维度</span></span><br><span class="line">    <span class="comment"># 第三个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    input_size = <span class="number">5</span></span><br><span class="line">    hidden_size = <span class="number">6</span></span><br><span class="line">    num_layers = <span class="number">1</span></span><br><span class="line">    model = nn.RNN(input_size, hidden_size, num_layers,batch_first=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 获取x0输入</span></span><br><span class="line">    <span class="comment"># x0的参数说明: 当前时间步的输入</span></span><br><span class="line">    <span class="comment"># 第一个参数 sequence_len : 每个样本的长度(词的数量),(因为RNN模型的batch_first默认为False,seq_len放在了最前面)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size : 一个批次送入几个样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 input_size : 输入的词嵌入层维度</span></span><br><span class="line">    sequence_len = <span class="number">4</span></span><br><span class="line">    batch_size = <span class="number">3</span></span><br><span class="line">    x0 = torch.randn(batch_size,sequence_len,input_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 获取h0的输入</span></span><br><span class="line">    <span class="comment"># h0的参数说明: 上一时间步隐藏层的输出</span></span><br><span class="line">    <span class="comment"># 第一个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size: 一个批次有多少样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 hidden_size: RNN单元隐藏层的输出维度</span></span><br><span class="line">    h0 = torch.randn(num_layers,batch_size,hidden_size) <span class="comment"># -&gt; output.shape=(4,1,6)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 将输入送给RNN模型得到下一时间步的输出结果</span></span><br><span class="line">    <span class="comment"># output: 所有时间步的输出结果</span></span><br><span class="line">    <span class="comment"># hn: 当前时间步的输出结果,即最后一个时间步(最后一个单词)隐藏层的输出结果</span></span><br><span class="line">    output, hn = model(x0, h0)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;一次性送入模型:&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;output -&gt; \n<span class="subst">&#123;output&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;hn -&gt; \n<span class="subst">&#123;hn&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;&amp;&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dm04_rnn_numlayers</span>():</span><br><span class="line">    <span class="comment"># 多个RNN单元</span></span><br><span class="line">    <span class="comment"># 1. 实例化模型</span></span><br><span class="line">    <span class="comment"># RNN的参数说明</span></span><br><span class="line">    <span class="comment"># 第一个参数 input_size: 输入的词嵌入维度</span></span><br><span class="line">    <span class="comment"># 第二个参数 hidden_size: RNN单元输出的隐藏层张量的维度</span></span><br><span class="line">    <span class="comment"># 第三个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    input_size = <span class="number">5</span></span><br><span class="line">    hidden_size = <span class="number">6</span></span><br><span class="line">    num_layers = <span class="number">2</span></span><br><span class="line">    model = nn.RNN(input_size, hidden_size, num_layers)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 获取x0输入</span></span><br><span class="line">    <span class="comment"># x0的参数说明: 当前时间步的输入</span></span><br><span class="line">    <span class="comment"># 第一个参数 sequence_len : 每个样本的长度(词的数量),(因为RNN模型的batch_first默认为False,seq_len放在了最前面)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size : 一个批次送入几个样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 input_size : 输入的词嵌入层维度</span></span><br><span class="line">    sequence_len = <span class="number">4</span></span><br><span class="line">    batch_size = <span class="number">3</span></span><br><span class="line">    x0 = torch.randn(sequence_len,batch_size,input_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 获取h0的输入</span></span><br><span class="line">    <span class="comment"># h0的参数说明: 上一时间步隐藏层的输出</span></span><br><span class="line">    <span class="comment"># 第一个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size: 一个批次有多少样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 hidden_size: RNN单元隐藏层的输出维度</span></span><br><span class="line">    h0 = torch.randn(num_layers,batch_size,hidden_size) <span class="comment"># -&gt; output.shape=(4,1,6)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 将输入送给RNN模型得到下一时间步的输出结果</span></span><br><span class="line">    <span class="comment"># output: 所有时间步的输出结果</span></span><br><span class="line">    <span class="comment"># hn: 当前时间步的输出结果,即最后一个时间步(最后一个单词)隐藏层的输出结果</span></span><br><span class="line">    output, hn = model(x0, h0)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;一次性送入模型:&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;output -&gt; \n<span class="subst">&#123;output&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;*&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;hn -&gt; \n<span class="subst">&#123;hn&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + <span class="string">&#x27;&amp;&#x27;</span> * <span class="number">33</span> + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># # 演示最基础的RNN模型</span></span><br><span class="line">    <span class="comment"># print(&#x27;===============演示 最基础的RNN模型================&#x27;)</span></span><br><span class="line">    <span class="comment"># result1 = dm01_rnn_base()</span></span><br><span class="line">    <span class="comment"># output,hn = result1</span></span><br><span class="line">    <span class="comment"># print(f&#x27;所有时间步的隐藏状态 -&gt; 输出output:\n&#123;output&#125;&#x27;)</span></span><br><span class="line">    <span class="comment"># print(&#x27;\n&#x27;+&#x27;*&#x27;*33+&#x27;\n&#x27;)</span></span><br><span class="line">    <span class="comment"># print(f&#x27;当前时间步的隐藏状态 -&gt; hn:\n&#123;hn&#125;&#x27;)</span></span><br><span class="line">    <span class="comment"># print(&#x27;\n&#x27;+&#x27;&amp;&#x27;*33+&#x27;\n&#x27;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># # 演示更改seq_len后一个token一个token的往模型里送</span></span><br><span class="line">    <span class="comment"># print(&#x27;===============演示 一个token一个token的往模型里送================&#x27;)</span></span><br><span class="line">    <span class="comment"># dm02_rnn_len()</span></span><br><span class="line">    <span class="comment"># todo: 演示结果:</span></span><br><span class="line">    <span class="comment"># todo: 可清楚的看见output的输出结果为所有时间步整体的输出结果</span></span><br><span class="line">    <span class="comment"># todo: hn 即当前时间步的输出的隐藏状态/最后一个词的输出结果</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># # 演示更改batch_size=True,将batch_size放到第一位</span></span><br><span class="line">    <span class="comment"># print(&#x27;===============演示 batch_size=True,将batch_size放到第一位================&#x27;)</span></span><br><span class="line">    <span class="comment"># dm03_rnn_batch()</span></span><br><span class="line">    <span class="comment"># todo: 演示结果:</span></span><br><span class="line">    <span class="comment"># todo: 每一组数据变为了每一个样本,每一个样本的第一行数据为第一次词的输出结果</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 演示多个RNN单元</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;===============演示 多个RNN单元================&#x27;</span>)</span><br><span class="line">    dm04_rnn_numlayers()</span><br><span class="line">    <span class="comment"># todo: 演示结果:</span></span><br><span class="line">    <span class="comment"># todo: hn的第一个结果为第一层的最后一个词的输出信息 (output被覆盖),</span></span><br><span class="line">    <span class="comment"># todo: hn的第二个结果为第二层的最后一个词的输出信息(output可见,即output为最上层的输出结果,即所有时间步的隐藏状态)</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-LSTM"><a href="#2-LSTM" class="headerlink" title="2. LSTM"></a>2. LSTM</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dm1_LSTM</span>():</span><br><span class="line">    <span class="comment"># 0.设置随机种子</span></span><br><span class="line">    torch.manual_seed(<span class="number">66</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 1. 实例化模型</span></span><br><span class="line">    <span class="comment"># LSTM的参数说明</span></span><br><span class="line">    <span class="comment"># 第一个参数 input_size: 输入的词嵌入维度</span></span><br><span class="line">    <span class="comment"># 第二个参数 hidden_size: LSTM单元输出的隐藏层张量的维度</span></span><br><span class="line">    <span class="comment"># 第三个参数 num_layers: 有几层LSTM单元(有几个隐藏层)</span></span><br><span class="line">    input_size = <span class="number">5</span></span><br><span class="line">    hidden_size = <span class="number">6</span></span><br><span class="line">    num_layers = <span class="number">2</span></span><br><span class="line">    model = nn.LSTM(input_size, hidden_size, num_layers)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 获取x0输入</span></span><br><span class="line">    <span class="comment"># x0的参数说明: 当前时间步的输入</span></span><br><span class="line">    <span class="comment"># 第一个参数 sequence_len : 每个样本的长度(词的数量),(因为RNN模型的batch_first默认为False,seq_len放在了最前面)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size : 一个批次送入几个样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 input_size : 输入的词嵌入层维度</span></span><br><span class="line">    sequence_len = <span class="number">3</span></span><br><span class="line">    batch_size = <span class="number">1</span></span><br><span class="line">    x0 = torch.randn(sequence_len, batch_size, input_size)</span><br><span class="line">    <span class="built_in">print</span>(x0.shape)  <span class="comment"># (S,B,input_size)/(3, 1, 5)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 获取h0,c0的输入</span></span><br><span class="line">    <span class="comment"># h0 : 上一时间步 的 隐藏层(状态)的输出 -&gt; 短期记忆</span></span><br><span class="line">    <span class="comment"># c0 : 上一时间步 的 细胞状态 -&gt; 长时记忆</span></span><br><span class="line">    <span class="comment"># 第一个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size: 一个批次有多少样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 hidden_size: RNN单元隐藏层的输出维度</span></span><br><span class="line">    <span class="comment"># h0 和 c0 的形状相同</span></span><br><span class="line">    h0 = torch.randn(num_layers, batch_size, hidden_size)</span><br><span class="line">    c0 = torch.randn(num_layers, batch_size, hidden_size)</span><br><span class="line">    <span class="built_in">print</span>(h0.shape)  <span class="comment"># (num_layers,B,H)/(2,1,6)</span></span><br><span class="line">    <span class="built_in">print</span>(c0.shape)  <span class="comment"># (num_layers,B,H)/(2,1,6)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 将 (x0,(h0,c0))输入 送给RNN模型得到下一时间步的输出结果</span></span><br><span class="line">    <span class="comment"># output: 包含所有时间步的隐藏状态 [h_1, h_2, ..., h_T]</span></span><br><span class="line">    <span class="comment"># hn: 仅最后一个时间步的隐藏状态 h_T</span></span><br><span class="line">    <span class="comment"># cn: 仅最后一个时间步的细胞状态 c_T</span></span><br><span class="line">    output, (hn, cn) = model(x0, (h0, c0))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;输出门的门值-&gt;output:\n<span class="subst">&#123;output&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;最后一时间步的隐藏状态-&gt;hn:\n<span class="subst">&#123;hn&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;最后一时间步的细胞状态-&gt;cn:\n<span class="subst">&#123;cn&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 5. 验证: hn 应该等于 output 的最后一个时间步</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;\n验证: output[-1] == hn[-1]?&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(torch.allclose(output[-<span class="number">1</span>], hn[-<span class="number">1</span>]))  <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    dm1_LSTM()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-GRU"><a href="#3-GRU" class="headerlink" title="3. GRU"></a>3. GRU</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导包</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义函数,模拟GRU模型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dm1_gru</span>():</span><br><span class="line">    <span class="comment"># 0.设置随机种子</span></span><br><span class="line">    torch.manual_seed(<span class="number">66</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 1. 实例化模型</span></span><br><span class="line">    <span class="comment"># GRU的参数说明</span></span><br><span class="line">    <span class="comment"># 第一个参数 input_size: 输入的词嵌入维度</span></span><br><span class="line">    <span class="comment"># 第二个参数 hidden_size: GRU单元输出的隐藏层张量的维度</span></span><br><span class="line">    <span class="comment"># 第三个参数 num_layers: 有几层GRU单元(有几个隐藏层)</span></span><br><span class="line">    input_size = <span class="number">5</span></span><br><span class="line">    hidden_size = <span class="number">6</span></span><br><span class="line">    num_layers = <span class="number">2</span></span><br><span class="line">    model = nn.GRU(input_size, hidden_size, num_layers)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 获取x0输入</span></span><br><span class="line">    <span class="comment"># x0的参数说明: 当前时间步的输入</span></span><br><span class="line">    <span class="comment"># 第一个参数 sequence_len : 每个样本的长度(词的数量),(因为RNN模型的batch_first默认为False,seq_len放在了最前面)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size : 一个批次送入几个样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 input_size : 输入的词嵌入层维度</span></span><br><span class="line">    sequence_len = <span class="number">3</span></span><br><span class="line">    batch_size = <span class="number">1</span></span><br><span class="line">    x0 = torch.randn(sequence_len, batch_size, input_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 获取h0,的输入</span></span><br><span class="line">    <span class="comment"># h0 : 上一时间步 的 隐藏层(状态)的输出 (简化了LSTM的细胞状态,统一为隐藏状态)</span></span><br><span class="line">    <span class="comment"># 第一个参数 num_layers: 有几层RNN单元(有几个隐藏层)</span></span><br><span class="line">    <span class="comment"># 第二个参数 batch_size: 一个批次有多少样本</span></span><br><span class="line">    <span class="comment"># 第三个参数 hidden_size: RNN单元隐藏层的输出维度</span></span><br><span class="line">    h0 = torch.randn(num_layers, batch_size, hidden_size)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 将 (x0,h0,)输入 送给GRU模型得到下一时间步的输出结果</span></span><br><span class="line">    <span class="comment"># output: 包含所有时间步的隐藏状态 [h_1, h_2, ..., h_T]</span></span><br><span class="line">    <span class="comment"># hn: 仅最后一个时间步的隐藏状态 h_T</span></span><br><span class="line">    output, hn = model(x0, h0, )</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;所有时间步的隐藏状态-&gt;output:\n<span class="subst">&#123;output&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;仅每一层最后一时间步的隐藏状态-&gt;hn:\n<span class="subst">&#123;hn&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    dm1_gru()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="五、RNN-LSTM-GRU-对比总结"><a href="#五、RNN-LSTM-GRU-对比总结" class="headerlink" title="五、RNN &#x2F; LSTM &#x2F; GRU 对比总结"></a>五、RNN &#x2F; LSTM &#x2F; GRU 对比总结</h1><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>门结构</th>
+<th>是否解决长依赖</th>
+<th>计算复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RNN</td>
+<td>无</td>
+<td>❌</td>
+<td>低</td>
+</tr>
+<tr>
+<td>LSTM</td>
+<td>三门一状态</td>
+<td>✅（较好）</td>
+<td>高</td>
+</tr>
+<tr>
+<td>GRU</td>
+<td>两门一状态</td>
+<td>✅（较好）</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="六、面试高频总结"><a href="#六、面试高频总结" class="headerlink" title="六、面试高频总结"></a>六、面试高频总结</h1><h3 id="1️⃣-RNN-为什么会有长依赖问题？"><a href="#1️⃣-RNN-为什么会有长依赖问题？" class="headerlink" title="1️⃣ RNN 为什么会有长依赖问题？"></a>1️⃣ RNN 为什么会有长依赖问题？</h3><ul>
+<li>由于反向传播过程中梯度不断连乘</li>
+<li>导致梯度消失或爆炸</li>
+</ul>
+<hr>
+<h3 id="2️⃣-LSTM-如何解决？"><a href="#2️⃣-LSTM-如何解决？" class="headerlink" title="2️⃣ LSTM 如何解决？"></a>2️⃣ LSTM 如何解决？</h3><ul>
+<li>引入细胞状态 $C_t​$</li>
+<li>使用门控机制控制信息流</li>
+</ul>
+<hr>
+<h3 id="3️⃣-GRU-和-LSTM-的区别？"><a href="#3️⃣-GRU-和-LSTM-的区别？" class="headerlink" title="3️⃣ GRU 和 LSTM 的区别？"></a>3️⃣ GRU 和 LSTM 的区别？</h3><ul>
+<li>GRU 更简单（少一个门）</li>
+<li>GRU 没有独立的细胞状态</li>
+<li>GRU 训练更快</li>
+</ul>
+<hr>
+<h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><ul>
+<li><p>RNN 适合短序列</p>
+</li>
+<li><p>LSTM &#x2F; GRU 适合长序列建模</p>
+</li>
+<li><p>实际任务中：</p>
+<ul>
+<li>小数据：GRU 常优先</li>
+<li>复杂任务：LSTM 更稳定</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Z n</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nianzzzz.github.io/2026/04/12/RNN-LSTM-GRU/">https://nianzzzz.github.io/2026/04/12/RNN-LSTM-GRU/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/NLP%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"># NLP自然语言处理</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2026/02/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">KMeans算法</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Z n | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
